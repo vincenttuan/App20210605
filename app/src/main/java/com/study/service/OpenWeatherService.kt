@@ -5,9 +5,9 @@ import com.study.model.OpenWeather
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class OpenWeatherService(val appid: String, val path: String) {
+class OpenWeatherService(val appid: String, var path: String) {
     fun getOpenWeather(q: String): OpenWeather {
-
+        path = path.format(q, appid)
         val client = OkHttpClient()
 
         val request = Request.Builder()

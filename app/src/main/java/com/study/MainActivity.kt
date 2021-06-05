@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, q, Toast.LENGTH_SHORT).show()
 
         GlobalScope.launch {
-            viewModel.ow = OpenWeatherService().getOpenWeather(q)
+            val appid = resources.getString(R.string.appid)
+            val path  = resources.getString(R.string.path)
+            viewModel.ow = OpenWeatherService(appid, path).getOpenWeather(q)
             runOnUiThread {
                 viewModel.currentImageURL.value = viewModel.ow!!.weather_icon_url.toString()
                 viewModel.currentLog.value = viewModel.ow.toString()
