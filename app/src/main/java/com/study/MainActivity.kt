@@ -3,11 +3,15 @@ package com.study
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
+import com.study.service.OpenWeatherService
 import com.study.viewmodel.OpenWeatherViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: OpenWeatherViewModel
@@ -27,6 +31,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeOpenWeather(view: View) {
+        val q = view.tag.toString()
+        Toast.makeText(applicationContext, q, Toast.LENGTH_SHORT).show()
+
+        GlobalScope.launch {
+            viewModel.ow = OpenWeatherService().getOpenWeather(q)
+            runOnUiThread {
+                viewModel.currentImageURL.value = viewModel.ow!!.weather_icon_url.toString()
+                viewModel.currentLog.value = viewModel.ow.toString()
+            }
+        }
+
 
     }
 
