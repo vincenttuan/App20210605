@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">OpenWeather</string>
     <string name="appid">fcc57465b76d35357c84e4e30fe2431a</string>
-    <string name="path">http://api.openweathermap.org/data/2.5/weather?q=${q}&amp;appid=${appid}</string>
+    <string name="path">http://api.openweathermap.org/data/2.5/weather?q=%s&amp;appid=%s</string>
 </resources>
