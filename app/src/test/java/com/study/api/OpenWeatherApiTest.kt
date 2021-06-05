@@ -51,6 +51,7 @@ fun main() {
         val ow = OpenWeather(name, country, weather_main, weather_description, weather_icon,
                              main_temp, main_feels_like, main_humidity, clouds_all, dt)
         print(ow)
+        print(ow.weather_icon_url)
     }
 
 
