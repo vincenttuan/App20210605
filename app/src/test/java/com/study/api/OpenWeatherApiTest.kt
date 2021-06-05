@@ -3,6 +3,8 @@ package com.study.api
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun main() {
     val q = "taoyuan,tw"
@@ -47,9 +49,13 @@ fun main() {
         println(main_humidity)
         println(clouds_all)
         println(dt)
-
-        val ow = OpenWeather(name, country, weather_main, weather_description, weather_icon,
-                             main_temp, main_feels_like, main_humidity, clouds_all, dt)
+        val transformedDate: String =
+            SimpleDateFormat("yyyy/MM/dd HH:mm:ss E").format(Date(dt * 1000L))
+        println(transformedDate)
+        val ow = OpenWeather(
+            name, country, weather_main, weather_description, weather_icon,
+            main_temp, main_feels_like, main_humidity, clouds_all, dt
+        )
         print(ow)
         print(ow.weather_icon_url)
     }
