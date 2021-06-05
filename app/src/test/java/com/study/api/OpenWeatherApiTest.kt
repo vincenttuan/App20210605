@@ -22,6 +22,7 @@ fun main() {
         // weather.main, weather.description, weather.icon
         // main.temp, main.feels_like, main.humidity
         // clouds.all
+        // dt
         val root = JsonParser.parseString(json).asJsonObject
         val name = root.get("name").toString().replace("\"", "")
         val country = root.getAsJsonObject("sys").get("country").toString().replace("\"", "")
@@ -30,10 +31,11 @@ fun main() {
         val weather_description = weather.get("description").toString().replace("\"", "")
         val weather_icon = weather.get("icon").toString().replace("\"", "")
         val main = root.getAsJsonObject("main")
-        val main_temp = main.get("temp")
-        val main_feels_like = main.get("feels_like")
-        val main_humidity = main.get("humidity")
-        val clouds_all = root.getAsJsonObject("clouds").get("all")
+        val main_temp = main.get("temp").asDouble
+        val main_feels_like = main.get("feels_like").asDouble
+        val main_humidity = main.get("humidity").asDouble
+        val clouds_all = root.getAsJsonObject("clouds").get("all").asInt
+        val dt = root.get("dt").asInt
 
         println(name)
         println(country)
@@ -44,6 +46,11 @@ fun main() {
         println(main_feels_like)
         println(main_humidity)
         println(clouds_all)
+        println(dt)
+
+        val ow = OpenWeather(name, country, weather_main, weather_description, weather_icon,
+                             main_temp, main_feels_like, main_humidity, clouds_all, dt)
+        print(ow)
     }
 
 
