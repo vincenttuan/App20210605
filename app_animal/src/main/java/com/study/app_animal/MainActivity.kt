@@ -2,6 +2,7 @@ package com.study.app_animal
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -44,6 +45,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.animal = viewModel.animals!![n]
             viewModel.currentImageURL.value = viewModel.animal!!.album_file
             viewModel.currentInfo.value = viewModel.animal.toString()
+        }
+
+        iv_album.setOnLongClickListener OnLongClickListeber@{
+            if(tv_info.visibility == View.VISIBLE) {
+                tv_info.visibility = View.GONE
+            } else {
+                tv_info.visibility = View.VISIBLE
+            }
+            return@OnLongClickListeber true
         }
 
     }
