@@ -37,7 +37,14 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/recyclerview_row"/>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/ns_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
