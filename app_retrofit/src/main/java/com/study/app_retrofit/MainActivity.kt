@@ -20,14 +20,20 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val api = RetrofitManager.instance.api
+
             //val call: Call<List<Post>> = api.getPosts()
             // 方法一 :
             //val posts = call.execute().body()
             //Log.d("MainActivity", posts.toString())
             // 方法二 :
             //call.enqueue(getPosts())
+            btn_posts.setOnClickListener {
+                api.getPosts().enqueue(getPosts())
+            }
+            btn_comments.setOnClickListener {
+                api.getComments().enqueue(getComments())
+            }
 
-            api.getComments().enqueue(getComments())
         }
 
     }
