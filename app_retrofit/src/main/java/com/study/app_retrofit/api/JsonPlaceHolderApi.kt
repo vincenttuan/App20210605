@@ -3,9 +3,7 @@ package com.study.app_retrofit.api
 import com.study.app_retrofit.model.Comment
 import com.study.app_retrofit.model.Post
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 // API 的目的是為了給 client 調用
 interface JsonPlaceHolderApi {
@@ -33,4 +31,11 @@ interface JsonPlaceHolderApi {
     @GET("/posts/{id}/comments")
     fun getComments(@Path("id") postId: Int): Call<List<Comment>>
 
+    // 查詢指定 URL 字串
+    @GET
+    fun getComments(@Url url: String): Call<List<Comment>>
+
+    // 查詢 comments (ex: comments?postId=4&_sort=id&_order=desc)
+    @GET("comments")
+    fun getComments(@QueryMap params: Map<String, String>): Call<List<Comment>>
 }

@@ -31,7 +31,13 @@ class MainActivity : AppCompatActivity() {
                 api.getPosts().enqueue(getPosts())
             }
             btn_comments.setOnClickListener {
-                api.getComments().enqueue(getComments())
+                //api.getComments().enqueue(getComments())
+                //api.getComments("/posts/2/comments").enqueue(getComments())
+                val params = HashMap<String, String>()
+                params.put("postId", "4")
+                params.put("_sort", "id")
+                params.put("_order", "desc")
+                api.getComments(params).enqueue(getComments())
             }
             btn_posts_order.setOnClickListener {
                 //api.getPosts(2, "id", "desc").enqueue(getPosts())
