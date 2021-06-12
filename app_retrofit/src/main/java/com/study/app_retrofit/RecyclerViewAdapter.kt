@@ -10,7 +10,7 @@ import com.study.app_retrofit.model.Photo
 import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
 class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
-    lateinit var items: List<Photo>
+    var items: List<Photo> = ArrayList<Photo>()
     fun setListData(items: List<Photo>) {
         this.items = items
     }
