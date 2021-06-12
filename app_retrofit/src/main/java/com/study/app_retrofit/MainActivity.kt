@@ -6,6 +6,7 @@ import android.util.Log
 import com.study.app_retrofit.manager.RetrofitManager
 import com.study.app_retrofit.model.Comment
 import com.study.app_retrofit.model.Post
+import com.study.app_retrofit.model.users.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,12 +45,64 @@ class MainActivity : AppCompatActivity() {
                 api.getComments(params).enqueue(getComments())
             }
             btn_users.setOnClickListener {
-
+                //api.getUsers().enqueue(getUsers())
+                api.getUser(1).enqueue(getUser())
             }
 
         }
 
     }
+
+    fun getUser(): Callback<User> {
+        val cb = object: Callback<User> {
+            // Server 端有回應
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(!response.isSuccessful) {
+                    // Ex: 404 找不到 page 的錯誤
+                    Log.d("MainActivity", "Is not successful: ${response.code()}")
+                    return
+                }
+                val user = response.body()
+                Log.d("MainActivity", user.toString())
+                // UI 呈現
+                runOnUiThread {
+                    tv_posts.text = user.toString()
+                }
+
+            }
+            // 無法連線(Ex: 找不到主機 hostname)
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("MainActivity", "Fail: ${t.message}")
+            }
+        }
+        return cb
+    }
+
+    fun getUsers(): Callback<List<User>> {
+        val cb = object: Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if(!response.isSuccessful) {
+                    // Ex: 404 找不到 page 的錯誤
+                    Log.d("MainActivity", "Is not successful: ${response.code()}")
+                    return
+                }
+                val users = response.body()
+                Log.d("MainActivity", users!!.size.toString())
+                Log.d("MainActivity", users.toString())
+                // UI 呈現
+                runOnUiThread {
+                    tv_posts.text = users!!.size.toString() + "\n" + users.toString()
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Log.d("MainActivity", "Fail: ${t.message}")
+            }
+
+        }
+        return cb;
+    }
+
 
     fun getPost(): Callback<Post> {
         val cb = object: Callback<Post> {
