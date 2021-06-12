@@ -22,5 +22,12 @@ interface JsonPlaceHolderApi {
                  @Query("_sort") _sort: String,
                  @Query("_order") _order: String): Call<List<Post>>
 
+    // 查詢 posts?userId=2&userId=4&_sort=id&_order=desc
+    @GET("posts")
+    fun getPosts(@Query("userId") userId: Array<Int>,
+                 @Query("_sort") _sort: String,
+                 @Query("_order") _order: String): Call<List<Post>>
+
+
 
 }
