@@ -11,10 +11,6 @@ interface JsonPlaceHolderApi {
     @GET("posts")
     fun getPosts(): Call<List<Post>>
 
-    // 查詢 comments
-    @GET("comments")
-    fun getComments(): Call<List<Comment>>
-
     // 查詢 posts?userId=2&_sort=id&_order=desc
     @GET("posts")
     fun getPosts(@Query("userId") userId: Int,
@@ -27,6 +23,10 @@ interface JsonPlaceHolderApi {
                  @Query("_sort") _sort: String,
                  @Query("_order") _order: String): Call<List<Post>>
 
+    // 查詢 comments
+    @GET("comments")
+    fun getComments(): Call<List<Comment>>
+
     // 查詢 /posts/3/comments
     @GET("/posts/{id}/comments")
     fun getComments(@Path("id") postId: Int): Call<List<Comment>>
@@ -38,4 +38,8 @@ interface JsonPlaceHolderApi {
     // 查詢 comments (ex: comments?postId=4&_sort=id&_order=desc)
     @GET("comments")
     fun getComments(@QueryMap params: Map<String, String>): Call<List<Comment>>
+
+    // 單筆查詢 ex: posts/2
+    @GET("/posts/{id}")
+    fun getPost(@Path("id") id: Int): Call<Post>
 }
