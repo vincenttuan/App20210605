@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
                 //api.getPosts(2, "id", "desc").enqueue(getPosts())
                 api.getPosts(arrayOf(2, 4), "id", "desc").enqueue(getPosts())
             }
+            btn_comments_by_id.setOnClickListener {
+                api.getComments(3).enqueue(getComments())
+            }
         }
 
     }
