@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
             btn_comments.setOnClickListener {
                 api.getComments().enqueue(getComments())
             }
-
+            btn_posts_order.setOnClickListener {
+                api.getPosts(2, "id", "desc").enqueue(getPosts())
+            }
         }
 
     }

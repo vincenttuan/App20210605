@@ -17,6 +17,7 @@ interface JsonPlaceHolderApi {
     fun getComments(): Call<List<Comment>>
 
     // 查詢 posts?userId=2&_sort=id&_order=desc
+    @GET("posts")
     fun getPosts(@Query("userId") userId: Int,
                  @Query("_sort") _sort: String,
                  @Query("_order") _order: String): Call<List<Post>>
