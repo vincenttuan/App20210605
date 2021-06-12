@@ -29,24 +29,24 @@ class MainActivity : AppCompatActivity() {
             //call.enqueue(getPosts())
             btn_posts.setOnClickListener {
                 //api.getPosts().enqueue(getPosts())
+                //api.getPosts(2, "id", "desc").enqueue(getPosts())
+                //api.getPosts(arrayOf(2, 4), "id", "desc").enqueue(getPosts())
                 api.getPost(2).enqueue(getPost())
             }
             btn_comments.setOnClickListener {
                 //api.getComments().enqueue(getComments())
                 //api.getComments("/posts/2/comments").enqueue(getComments())
+                //api.getComments(3).enqueue(getComments())
                 val params = HashMap<String, String>()
                 params.put("postId", "4")
                 params.put("_sort", "id")
                 params.put("_order", "desc")
                 api.getComments(params).enqueue(getComments())
             }
-            btn_posts_order.setOnClickListener {
-                //api.getPosts(2, "id", "desc").enqueue(getPosts())
-                api.getPosts(arrayOf(2, 4), "id", "desc").enqueue(getPosts())
+            btn_users.setOnClickListener {
+
             }
-            btn_comments_by_id.setOnClickListener {
-                api.getComments(3).enqueue(getComments())
-            }
+
         }
 
     }
