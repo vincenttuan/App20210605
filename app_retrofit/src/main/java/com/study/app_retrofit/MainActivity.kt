@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             // 方法二 :
             //call.enqueue(getPosts())
             btn_posts.setOnClickListener {
-                api.getPosts().enqueue(getPosts())
+                //api.getPosts().enqueue(getPosts())
+                api.getPost(2).enqueue(getPost())
             }
             btn_comments.setOnClickListener {
                 //api.getComments().enqueue(getComments())
@@ -48,6 +49,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun getPost(): Callback<Post> {
+        val cb = object: Callback<Post> {
+            // Server 端有回應
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if(!response.isSuccessful) {
+                    // Ex: 404 找不到 page 的錯誤
+                    Log.d("MainActivity", "Is not successful: ${response.code()}")
+                    return
+                }
+                val post = response.body()
+                Log.d("MainActivity", post.toString())
+                // UI 呈現
+                runOnUiThread {
+                    tv_posts.text = post.toString()
+                }
+
+            }
+            // 無法連線(Ex: 找不到主機 hostname)
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.d("MainActivity", "Fail: ${t.message}")
+            }
+        }
+        return cb
     }
 
     fun getPosts(): Callback<List<Post>> {
