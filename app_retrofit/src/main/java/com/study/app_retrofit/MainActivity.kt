@@ -3,6 +3,7 @@ package com.study.app_retrofit
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -43,12 +44,16 @@ class MainActivity : AppCompatActivity() {
             // 方法二 :
             //call.enqueue(getPosts())
             btn_posts.setOnClickListener {
+                recyclerView.visibility = View.GONE
+                ns_view.visibility = View.VISIBLE
                 //api.getPosts().enqueue(getPosts())
                 //api.getPosts(2, "id", "desc").enqueue(getPosts())
                 //api.getPosts(arrayOf(2, 4), "id", "desc").enqueue(getPosts())
                 api.getPost(2).enqueue(getPost())
             }
             btn_comments.setOnClickListener {
+                recyclerView.visibility = View.GONE
+                ns_view.visibility = View.VISIBLE
                 //api.getComments().enqueue(getComments())
                 //api.getComments("/posts/2/comments").enqueue(getComments())
                 //api.getComments(3).enqueue(getComments())
@@ -59,10 +64,14 @@ class MainActivity : AppCompatActivity() {
                 api.getComments(params).enqueue(getComments())
             }
             btn_users.setOnClickListener {
+                recyclerView.visibility = View.GONE
+                ns_view.visibility = View.VISIBLE
                 //api.getUsers().enqueue(getUsers())
                 api.getUser(1).enqueue(getUser())
             }
             btn_photos.setOnClickListener {
+                recyclerView.visibility = View.VISIBLE
+                ns_view.visibility = View.GONE
                 api.getPhotos().enqueue(getPhotos())
             }
         }
