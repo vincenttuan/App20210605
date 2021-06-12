@@ -1,5 +1,7 @@
 package com.study.app_retrofit
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +20,22 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
         val id = view.tv_id
         val title = view.tv_title
         val thumbnail:ImageView = view.iv_thumbnail
-
-        fun bind(photo: Photo) {
+        fun bind(photo: Photo, context: Context) {
             id.text = photo.id.toString()
             title.text = photo.title
             try {
                 Picasso.get().load(photo.thumbnailUrl).into(thumbnail)
             } catch (e: Exception) {
                 // 沒有圖片
+            }
+            thumbnail.setOnClickListener {
+                val iv: ImageView = ImageView(context)
+                Picasso.get().load(photo.url).into(iv)
+                AlertDialog.Builder(context)
+                    .setTitle("Photo")
+                    .setView(iv)
+                    .setPositiveButton("Close", null)
+                    .show()
             }
         }
     }
@@ -37,7 +47,7 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], holder.itemView.context)
     }
 
     override fun getItemCount(): Int {
