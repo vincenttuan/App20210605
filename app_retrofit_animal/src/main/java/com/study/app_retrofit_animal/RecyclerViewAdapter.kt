@@ -30,7 +30,11 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
             }
             album.setOnClickListener {
                 val iv: ImageView = ImageView(context)
-                Picasso.get().load(animal.album_file).into(iv)
+                try {
+                    Picasso.get().load(animal.album_file).into(iv)
+                } catch (e: Exception) {
+                    // 沒有圖片
+                }
                 AlertDialog.Builder(context)
                     .setTitle("Photo")
                     .setView(iv)
