@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             val animals: List<Animal>? = api.getAnimals(uid).execute().body()
             Log.d("MainActivity", animals.toString())
             runOnUiThread {
+                title = "寵物領養筆數: ${animals!!.size}"
                 recyclerViewAdapter.setListData(animals!!)
                 recyclerViewAdapter.notifyDataSetChanged()
             }
