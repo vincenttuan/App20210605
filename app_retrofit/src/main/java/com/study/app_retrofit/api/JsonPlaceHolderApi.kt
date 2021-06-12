@@ -1,6 +1,7 @@
 package com.study.app_retrofit.api
 
 import com.study.app_retrofit.model.Comment
+import com.study.app_retrofit.model.Photo
 import com.study.app_retrofit.model.Post
 import com.study.app_retrofit.model.users.User
 import retrofit2.Call
@@ -43,6 +44,10 @@ interface JsonPlaceHolderApi {
     // 查詢 users
     @GET(value = "users")
     fun getUsers(): Call<List<User>>
+
+    // 查詢 photos
+    @GET(value = "photos")
+    fun getPhotos(): Call<List<Photo>>
 
     // 單筆查詢 ex: posts/2
     @GET("/posts/{id}")

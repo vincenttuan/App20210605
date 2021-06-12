@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.study.app_retrofit.manager.RetrofitManager
 import com.study.app_retrofit.model.Comment
+import com.study.app_retrofit.model.Photo
 import com.study.app_retrofit.model.Post
 import com.study.app_retrofit.model.users.User
 import kotlinx.android.synthetic.main.activity_main.*
@@ -48,9 +49,36 @@ class MainActivity : AppCompatActivity() {
                 //api.getUsers().enqueue(getUsers())
                 api.getUser(1).enqueue(getUser())
             }
-
+            btn_photos.setOnClickListener {
+                api.getPhotos().enqueue(getPhotos())
+            }
         }
 
+    }
+
+    fun getPhotos(): Callback<List<Photo>> {
+        val cb = object: Callback<List<Photo>> {
+            override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
+                if(!response.isSuccessful) {
+                    // Ex: 404 找不到 page 的錯誤
+                    Log.d("MainActivity", "Is not successful: ${response.code()}")
+                    return
+                }
+                val photos = response.body()
+                Log.d("MainActivity", photos!!.size.toString())
+                Log.d("MainActivity", photos.toString())
+                // UI 呈現
+                runOnUiThread {
+                    tv_posts.text = photos!!.size.toString() + "\n" + photos.toString()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Photo>>, t: Throwable) {
+                Log.d("MainActivity", "Fail: ${t.message}")
+            }
+
+        }
+        return cb;
     }
 
     fun getUser(): Callback<User> {
