@@ -4,13 +4,13 @@ import com.study.app_retrofit.api.JsonPlaceHolderApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// 會以 Sington 來設計
+// 會以 Singleton 來設計
 class RetrofitManager {
     private val placeHolderApi: JsonPlaceHolderApi
     val api: JsonPlaceHolderApi
         get() = placeHolderApi
 
-    companion object {
+    companion object { // 相當於 java 的 static class
         val instance = RetrofitManager()
     }
 
