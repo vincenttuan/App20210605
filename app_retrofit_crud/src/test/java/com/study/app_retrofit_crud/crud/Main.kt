@@ -27,6 +27,9 @@ interface JsonPlaceHolderService {
 
     @PUT("/posts/{id}")
     fun updatePost(@Path("id") id: Int, @Body post: Post): Call<Post>
+
+    @PATCH("/posts/{id}")
+    fun patchPost(@Path("id") id: Int, @Body post: Post): Call<Post>
 }
 
 fun main() {
@@ -67,14 +70,18 @@ fun main() {
     //println(api.createPost(24, "New Title2", "New Body2").execute().isSuccessful)
 
     // Put 全部修改
-    val post = api.getPost(1)!!.execute().body()
+    //val post = api.getPost(1)!!.execute().body()
     //println(post)
+    /*
     if(post != null) {
         post.userId = 99
         post.title = "AAA"
         post.body = "BBB"
         println(api.updatePost(1, post).execute().isSuccessful)
    }
-    // Patch 部分修改
+   */
+    // Patch 部分修改(沒有傳的就不會更新)
+    val post = Post(15, 1, "CCC", null)
+    println(api.patchPost(1, post).execute().isSuccessful)
 
 }
