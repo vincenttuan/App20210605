@@ -1,10 +1,13 @@
 package com.study.app_retrofit_crud.crud
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Url
+
 
 interface OpenWeatherService {
     @GET
@@ -20,5 +23,12 @@ fun main() {
         .baseUrl("https://api.openweathermap.org/data/2.5/")
         .build()
     val api = retrofit.create(OpenWeatherService::class.java)
-    println(api.getStringResponse(path).execute().body())
+
+    val json = api.getStringResponse(path).execute().body()
+
+    val jelement: JsonElement = JsonParser.parseString(json)
+    val jobject = jelement.asJsonObject
+    var temp = jobject.getAsJsonObject("main").get("temp").asDouble
+    temp -= 273.15
+    println(temp)
 }
