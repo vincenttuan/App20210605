@@ -12,14 +12,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/basic"
+            android:id="@+id/et_basic"
             android:hint="請輸入薪資"
+            android:textSize="30dp"
+            android:inputType="number"
+            android:gravity="right"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/update"
+            android:id="@+id/bt_update"
             android:text="修改"
+            android:textSize="30dp"
             android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -28,5 +32,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row"/>
 </LinearLayout>

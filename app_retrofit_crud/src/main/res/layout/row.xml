@@ -7,12 +7,14 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_weight="1"
+        android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tv_basic"
         android:layout_weight="1"
+        android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
