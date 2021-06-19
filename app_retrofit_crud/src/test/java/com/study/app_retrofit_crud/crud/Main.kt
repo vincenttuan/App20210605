@@ -1,5 +1,6 @@
 package com.study.app_retrofit_crud.crud
 
+import com.study.app_retrofit_crud.crud.users.User
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -30,13 +31,23 @@ interface JsonPlaceHolderService {
     fun updatePost(@Path("id") id: Int, @Body post: Post): Call<Post>
 
     @PUT("/posts/{id}")
-    fun updatePost(@Header("Dynamic-Header") header: String, @Path("id") id: Int, @Body post: Post): Call<Post>
+    fun updatePost(
+        @Header("Dynamic-Header") header: String,
+        @Path("id") id: Int,
+        @Body post: Post
+    ): Call<Post>
 
     @PATCH("/posts/{id}")
     fun patchPost(@Path("id") id: Int, @Body post: Post): Call<Post>
 
     @DELETE("/posts/{id}")
     fun deletePost(@Path("id") id: Int): Call<Void>
+
+    @PATCH("/users/{id}")
+    fun getUser(@Path("id") id: Int): Call<User>
+
+    @PATCH("/users/{id}")
+    fun updateCityByUser(@Path("id") id: Int, @Body user: User): Call<User>
 }
 
 fun main() {
@@ -77,6 +88,7 @@ fun main() {
     //println(api.createPost(24, "New Title2", "New Body2").execute().isSuccessful)
 
     // Put 全部修改
+    /*
     val post = api.getPost(1)!!.execute().body()
     println(post)
     if(post != null) {
@@ -86,10 +98,19 @@ fun main() {
         //println(api.updatePost(1, post).execute().isSuccessful)
         println(api.updatePost("5678",1, post).execute().isSuccessful)
    }
+   */
+
     // Patch 部分修改(沒有傳的就不會更新)
     //val post = Post(15, 1, "CCC", null)
     //println(api.patchPost(1, post).execute().isSuccessful)
 
     // Delete
     //println(api.deletePost(1).execute().isSuccessful)
+
+    // update city name
+    val user = api.getUser(1).execute().body()
+    if(user != null) {
+        user.address.city = "Taoyuan"
+        print(api.updateCityByUser(1, user).execute().isSuccessful)
+    }
 }
