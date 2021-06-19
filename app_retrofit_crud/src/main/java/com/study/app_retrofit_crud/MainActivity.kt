@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RowClickListener {
 
     override fun onItemClickListener(employee: Employee) {
         Toast.makeText(this, employee.toString(), Toast.LENGTH_SHORT).show()
-        et_basic.setText(employee.id)
+        et_basic.setText(employee.id.toString())
         et_basic.setText(employee.salary.basic.toString())
     }
 
