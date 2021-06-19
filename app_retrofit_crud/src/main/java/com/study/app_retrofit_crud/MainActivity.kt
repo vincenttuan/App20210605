@@ -41,12 +41,16 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RowClickListener {
             GlobalScope.launch {
                 val api = JsonDBManager.instance.api
                 // Update
-                val id = et_basic.getTag().toString().toInt()
+                val id = et_basic.getTag(R.id.emp_id).toString().toInt()
+                val name = et_basic.getTag(R.id.emp_name).toString()
                 val basic = et_basic.text.toString().toInt()
                 val employee = api.getEmployee(id).execute().body()
                 if(employee != null) {
                     employee.salary.basic = basic
                     if(api.updateSalary(id , employee).execute().isSuccessful) {
+                        runOnUiThread {
+                            Toast.makeText(applicationContext, "$name 的薪資修改成功", Toast.LENGTH_SHORT).show()
+                        }
                         // 重新查詢
                         val employees: List<Employee>? = api.getEmployees().execute().body()
                         runOnUiThread {
@@ -62,7 +66,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RowClickListener {
 
     override fun onItemClickListener(employee: Employee) {
         Toast.makeText(applicationContext, employee.toString(), Toast.LENGTH_SHORT).show()
-        et_basic.setTag(employee.id)
+        et_basic.setTag(R.id.emp_id, employee.id)
+        et_basic.setTag(R.id.emp_name, employee.name)
         et_basic.setText(employee.salary.basic.toString())
     }
 
