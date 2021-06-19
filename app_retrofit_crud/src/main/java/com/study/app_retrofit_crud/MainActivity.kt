@@ -41,12 +41,20 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RowClickListener {
             GlobalScope.launch {
                 val api = JsonDBManager.instance.api
                 // Update
-
-                val employees: List<Employee>? = api.getEmployees().execute().body()
-                runOnUiThread {
-                    title = "員工筆數: ${employees!!.size}"
-                    recyclerViewAdapter.setListData(employees!!)
-                    recyclerViewAdapter.notifyDataSetChanged()
+                val id = et_basic.getTag().toString().toInt()
+                val basic = et_basic.text.toString().toInt()
+                val employee = api.getEmployee(id).execute().body()
+                if(employee != null) {
+                    employee.salary.basic = basic
+                    if(api.updateSalary(id , employee).execute().isSuccessful) {
+                        // 重新查詢
+                        val employees: List<Employee>? = api.getEmployees().execute().body()
+                        runOnUiThread {
+                            title = "員工筆數: ${employees!!.size}"
+                            recyclerViewAdapter.setListData(employees!!)
+                            recyclerViewAdapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         }
@@ -54,7 +62,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.RowClickListener {
 
     override fun onItemClickListener(employee: Employee) {
         Toast.makeText(this, employee.toString(), Toast.LENGTH_SHORT).show()
-        et_basic.setText(employee.id.toString())
+        et_basic.setTag(employee.id)
         et_basic.setText(employee.salary.basic.toString())
     }
 

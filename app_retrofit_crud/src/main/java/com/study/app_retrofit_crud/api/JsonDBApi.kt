@@ -12,6 +12,9 @@ interface JsonDBApi {
     @GET("/employees")
     fun getEmployees(): Call<List<Employee>>
 
+    @GET("/employees/{id}")
+    fun getEmployee(@Path("id") id: Int): Call<Employee>
+
     @PATCH("/employees/{id}")
     fun updateSalary(@Path("id") id: Int, @Body employee: Employee): Call<Employee>
 

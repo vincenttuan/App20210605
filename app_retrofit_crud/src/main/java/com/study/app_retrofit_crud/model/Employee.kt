@@ -1,9 +1,9 @@
 package com.study.app_retrofit_crud.model
 
 data class Employee(
-    val email: String,
+    var email: String,
     val id: Int,
-    val name: String,
-    val phone: String,
-    val salary: Salary
+    var name: String,
+    var phone: String,
+    var salary: Salary
 )
