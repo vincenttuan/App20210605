@@ -30,6 +30,9 @@ interface JsonPlaceHolderService {
 
     @PATCH("/posts/{id}")
     fun patchPost(@Path("id") id: Int, @Body post: Post): Call<Post>
+
+    @DELETE("/posts/{id}")
+    fun deletePost(@Path("id") id: Int): Call<Void>
 }
 
 fun main() {
@@ -81,7 +84,9 @@ fun main() {
    }
    */
     // Patch 部分修改(沒有傳的就不會更新)
-    val post = Post(15, 1, "CCC", null)
-    println(api.patchPost(1, post).execute().isSuccessful)
+    //val post = Post(15, 1, "CCC", null)
+    //println(api.patchPost(1, post).execute().isSuccessful)
 
+    // Delete
+    println(api.deletePost(1).execute().isSuccessful)
 }
