@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    //--- javafaker ----------------------------------------------------
+    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 
     //--- Basic ----------------------------------------------------
     implementation 'androidx.activity:activity-ktx:1.2.2'
