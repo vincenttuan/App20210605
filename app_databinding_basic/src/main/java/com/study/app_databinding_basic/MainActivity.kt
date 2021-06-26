@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
         // 建立資料
-        val post = Post(12, "Kotlin", "Java")
+        // val post = Post(12, "Kotlin", "Java")
         // 繫結資料 Binding data
-        mBinding.post = post
+        // mBinding.post = post
     }
 
     fun click(view: View) {
