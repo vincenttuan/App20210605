@@ -1,3 +1,7 @@
+include ':app_databinding_basic'
+include ':app_retrofit_crud'
+include ':app_retrofit_animal'
+include ':app_retrofit'
 include ':app_animal'
 include ':app_transservice'
 include ':app'
