@@ -6,13 +6,30 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.study.app_databinding_recyclerview.model.Post
+import com.study.app_databinding_recyclerview.viewmodel.PostViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: PostViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
+        viewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+        viewModel.posts.observe(this, Observer {
+            recyclerView.adapter = PostAdapter(it)
+        })
+
+        viewModel.defaultData()
     }
 
     class PostAdapter(private var list: List<Post>):
