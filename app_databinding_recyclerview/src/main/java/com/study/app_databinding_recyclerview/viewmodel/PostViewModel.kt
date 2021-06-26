@@ -1,9 +1,11 @@
 package com.study.app_databinding_recyclerview.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.javafaker.Faker
 import com.study.app_databinding_recyclerview.model.Post
+import kotlin.random.Random
 
 class PostViewModel: ViewModel() {
     var posts = MutableLiveData<MutableList<Post>>()
@@ -21,4 +23,5 @@ class PostViewModel: ViewModel() {
             posts.postValue(tempList)
         }
     }
+
 }

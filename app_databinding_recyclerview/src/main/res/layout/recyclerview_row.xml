@@ -5,6 +5,9 @@
         <variable
             name="post"
             type="com.study.app_databinding_recyclerview.model.Post" />
+        <variable
+            name="ma"
+            type="com.study.app_databinding_recyclerview.MainActivity" />
     </data>
 
     <LinearLayout
@@ -22,6 +25,8 @@
 
         <TextView
             android:text="@{ post.title }"
+            android:clickable="true"
+            android:onClick="@{() -> ma.updateTitle(post.id)}"
             android:padding="10dp"
             android:textSize="20dp"
             android:layout_weight="1"
@@ -30,6 +35,8 @@
 
         <TextView
             android:text="@{ post.author }"
+            android:clickable="true"
+            android:onClick="@{() -> ma.updateAuthor(post.id)}"
             android:padding="10dp"
             android:textSize="20dp"
             android:layout_weight="1"
