@@ -8,6 +8,7 @@
         <variable
             name="post"
             type="com.study.app_databinding_basic.model.Post" />
+
     </data>
 
     <LinearLayout
@@ -15,6 +16,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity">
+
+        <Button
+            android:onClick="click"
+            android:text="Click"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:text="@{ String.valueOf(post.id) }"
