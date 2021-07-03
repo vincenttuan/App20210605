@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
-        notificationManager!!.notify(1001, notification)
+        notificationManager!!.notify(1002, notification)
     }
 
 }
