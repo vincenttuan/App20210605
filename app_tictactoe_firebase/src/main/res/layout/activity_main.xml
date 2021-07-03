@@ -20,6 +20,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <Button
+            android:id="@+id/bt_mark"
+            android:layout_margin="5dp"
+            android:text="O"
+            android:textSize="20dp"
+            android:padding="20dp"
+            android:layout_toRightOf="@+id/bt_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 
     <LinearLayout
