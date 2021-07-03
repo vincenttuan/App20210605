@@ -3,6 +3,8 @@ package com.study.app_notification
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         // 建構 notificationManager
         notificationManager = NotificationManagerCompat.from(this)
+
+        // 一但進入先刪除 1001
+        //notificationManager!!.cancel(1001)
     }
 
     fun deleteByChannel1(view: View) {
@@ -28,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendByChannel1(view: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val title: String = et_title.text.toString()
         val message: String = et_message.text.toString()
         val notification: Notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
@@ -36,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             .setContentTitle(title)
             .setContentText(message)
             .setSubText("2021-7-3 by vincent")
+            .setContentIntent(pIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .build()
