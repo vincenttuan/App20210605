@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -56,5 +54,12 @@ class MainActivity : AppCompatActivity() {
         val path = "b" + tag
         val mark = bt_mark.tag.toString()
         myTTTRef.child(path).setValue(mark)
+    }
+
+    fun tttResetOnClick(view: View) {
+        for (i in 1..9) {
+            val path = "b" + i
+            myTTTRef.child(path).setValue("")
+        }
     }
 }
