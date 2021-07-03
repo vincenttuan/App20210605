@@ -28,6 +28,26 @@ class MainActivity : AppCompatActivity() {
         //notificationManager!!.cancel(1001)
     }
 
+    fun updateByChannel1(view: View) {
+        // 根據相同的 id 在發送一次
+        val id = 1001;
+        val intent = Intent(this, MainActivity::class.java)
+        val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val title: String = et_title.text.toString()
+        val message: String = et_message.text.toString()
+        val notification: Notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setOngoing(true)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSubText("continue ...")
+            .setContentIntent(pIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .build()
+        notificationManager!!.notify(id, notification)
+    }
+
     fun continueByChannel2(view: View) {
         for(i in 1..5) {
             val title: String = et_title.text.toString() + ":" + i.toString()
