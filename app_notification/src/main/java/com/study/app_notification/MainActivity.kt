@@ -28,6 +28,20 @@ class MainActivity : AppCompatActivity() {
         //notificationManager!!.cancel(1001)
     }
 
+    fun continueByChannel2(view: View) {
+        for(i in 1..5) {
+            val title: String = et_title.text.toString() + ":" + i.toString()
+            val message: String = et_message.text.toString() + ":" + i.toString()
+            val notification: Notification = NotificationCompat.Builder(this, App.CHANNEL_2_ID)
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build()
+            notificationManager!!.notify(i, notification)
+        }
+    }
+
     fun deleteByChannel1(view: View) {
         notificationManager!!.cancel(1001)
     }
