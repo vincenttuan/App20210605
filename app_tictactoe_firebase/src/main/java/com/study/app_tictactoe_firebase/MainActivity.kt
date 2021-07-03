@@ -77,5 +77,6 @@ class MainActivity : AppCompatActivity() {
             val path = "b" + i
             myTTTRef.child(path).setValue("")
         }
+        myTTTLastMarkRef.setValue("")
     }
 }
