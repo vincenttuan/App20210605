@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     val database = Firebase.database
     val myTTTRef = database.getReference("ttt/game")
+    val myTTTLastMarkRef = database.getReference("ttt/last_mark")
     lateinit var context: Context
+    lateinit var lastMark: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,13 +49,27 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        myTTTLastMarkRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                lastMark = snapshot.value.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     fun tttOnClick(view: View) {
+        val mark = bt_mark.tag.toString()
+        if(mark.equals(lastMark)) {
+            return
+        }
         val tag = view.getTag().toString()
         val path = "b" + tag
-        val mark = bt_mark.tag.toString()
         myTTTRef.child(path).setValue(mark)
+        myTTTLastMarkRef.setValue(mark)
     }
 
     fun tttResetOnClick(view: View) {
