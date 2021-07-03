@@ -23,11 +23,16 @@ class MainActivity : AppCompatActivity() {
         notificationManager = NotificationManagerCompat.from(this)
     }
 
+    fun deleteByChannel1(view: View) {
+        notificationManager!!.cancel(1001)
+    }
+
     fun sendByChannel1(view: View) {
         val title: String = et_title.text.toString()
         val message: String = et_message.text.toString()
         val notification: Notification = NotificationCompat.Builder(this, App.CHANNEL_1_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setOngoing(true)
             .setContentTitle(title)
             .setContentText(message)
             .setSubText("2021-7-3 by vincent")

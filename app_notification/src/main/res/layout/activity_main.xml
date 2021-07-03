@@ -46,4 +46,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/bt_delete"
+        android:onClick="deleteByChannel1"
+        android:textSize="20dp"
+        android:padding="15dp"
+        android:text="Delete 1"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/bt_channel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
