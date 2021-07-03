@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+   <EditText
+       android:id="@+id/et_title"
+       android:textSize="30dp"
+       android:hint="請輸入 Title"
+       android:layout_margin="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/et_message"
+        android:textSize="30dp"
+        android:hint="請輸入 Message"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/bt_channel1"
+        android:textSize="20dp"
+        android:padding="15dp"
+        android:text="Channel 1"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/et_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/bt_channel2"
+        android:textSize="20dp"
+        android:padding="15dp"
+        android:text="Channel 2"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/et_message"
+        android:layout_toRightOf="@+id/bt_channel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
