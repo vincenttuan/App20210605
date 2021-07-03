@@ -25,6 +25,7 @@
 
     <Button
         android:id="@+id/bt_channel1"
+        android:onClick="sendByChannel1"
         android:textSize="20dp"
         android:padding="15dp"
         android:text="Channel 1"
@@ -35,6 +36,7 @@
 
     <Button
         android:id="@+id/bt_channel2"
+        android:onClick="sendByChannel2"
         android:textSize="20dp"
         android:padding="15dp"
         android:text="Channel 2"
