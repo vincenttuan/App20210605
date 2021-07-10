@@ -8,4 +8,7 @@
     <string name="total_amount_txt">剩餘張數：</string>
     <string name="buy_amount_txt">購買張數：</string>
     <string name="round_trip_amount_txt">來回組數：</string>
+    <string name="clear_txt">清除</string>
+    <string name="record_txt">紀錄</string>
+    <string name="buy_txt">購買</string>
 </resources>

@@ -153,6 +153,43 @@
     </LinearLayout>
 
     <!-- 操作按鈕 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/clear_txt"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="#005100"
+            android:textColor="#FFFF00"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="@string/record_txt"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="#53868B"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="@string/buy_txt"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
 
     <!-- 結帳資訊 -->
 
