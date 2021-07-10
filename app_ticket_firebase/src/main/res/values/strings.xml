@@ -2,6 +2,10 @@
     <string name="app_name">App_Ticket_Firebase</string>
     <string name="default_1000">1000</string>
     <string name="default_7">7.0</string>
+    <string name="default_10">10</string>
     <string name="oneway_price_txt">單程票價：</string>
     <string name="round_trip_discount_txt">來回折扣：</string>
+    <string name="total_amount_txt">剩餘張數：</string>
+    <string name="buy_amount_txt">購買張數：</string>
+    <string name="round_trip_amount_txt">來回組數：</string>
 </resources>
