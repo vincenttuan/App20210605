@@ -13,6 +13,8 @@ import com.google.firebase.ktx.Firebase
 import com.study.app_ticket_firebase.models.TicketsStock
 import com.study.app_ticket_firebase.services.TicketService
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val database = Firebase.database
@@ -103,7 +105,13 @@ class MainActivity : AppCompatActivity() {
                 myRef.child("totalAmount").setValue(updateAmount)
 
                 // 2. 新增訂單紀錄資料
-
+                val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+                val dateString = sdf.format(Date())
+                val subPath = "transaction/" + userName + "/" + dateString + "/"
+                myRef.child(subPath + "allTickets").setValue(ticket.allTickets)
+                myRef.child(subPath + "roundTrip").setValue(ticket.roundTrip)
+                myRef.child(subPath + "oneWay").setValue(ticket.oneWay)
+                myRef.child(subPath + "total").setValue(ticket.total)
 
                 // 購買成功訊息
                 tv_warning.text = resources.getString(R.string.warning_txt)
