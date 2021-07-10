@@ -26,17 +26,21 @@
 
     <Button
         android:id="@+id/bt_order_login"
-        android:text="@string/order_login_txt"
-        android:textSize="30dp"
-        android:padding="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_below="@+id/et_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="50dp"
+        android:onClick="orderLogin"
+        android:padding="10dp"
+        android:text="@string/order_login_txt"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/bt_console_login"
+        android:onClick="consoleLogin"
         android:text="@string/console_login_txt"
         android:textSize="30dp"
         android:padding="10dp"
