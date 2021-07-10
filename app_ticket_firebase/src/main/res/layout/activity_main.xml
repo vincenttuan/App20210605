@@ -187,6 +187,7 @@
 
         <Button
             android:text="@string/buy_txt"
+            android:onClick="buyTicket"
             android:textSize="25dp"
             android:padding="10dp"
             android:layout_margin="5dp"

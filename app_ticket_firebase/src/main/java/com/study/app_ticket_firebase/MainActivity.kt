@@ -75,4 +75,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // 購票流程(按下購買鈕)
+    fun buyTicket(view: View) {
+
+    }
+
 }
