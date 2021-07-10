@@ -13,4 +13,5 @@
     <string name="buy_txt">購買</string>
     <string name="submit_info_txt">結帳資訊</string>
     <string name="submit_detail_txt">總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d</string>
+    <string name="warning_txt">購買成功 !</string>
 </resources>
