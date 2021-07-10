@@ -96,6 +96,16 @@ class MainActivity : AppCompatActivity() {
                     ticket.oneWay,
                     ticket.total
                 )
+
+                // 通知 firebase ----------------------
+                // 1. 變更 totalAmount 剩餘張數
+                val updateAmount = ticketsStock.totalAmount - ticket.allTickets
+                myRef.child("totalAmount").setValue(updateAmount)
+
+                // 2. 新增訂單紀錄資料
+
+
+                // 購買成功訊息
                 tv_warning.text = resources.getString(R.string.warning_txt)
             }
         } catch (e: Exception) {
