@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         // Set activity title
         title = String.format(title.toString(), userName)
-                             // 雲端購票 - %s
+        // 雲端購票 - %s
         // new TicketsStock
         ticketsStock = TicketsStock(0.0, 0, 0)
 
         // Read from the database
-        myRef.addValueEventListener(object: ValueEventListener {
+        myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val children = snapshot.children
                 children.forEach {
@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 // refresh ui
                 refreshUI()
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
             }
@@ -68,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     fun clear(view: View?) {
         // 清除結帳資訊內容
-        var result = resources.getString(R.string.submit_detail_txt) // 總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d
+        var result =
+            resources.getString(R.string.submit_detail_txt) // 總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d
         tv_result.text = String.format(result, 0, 0, 0, 0)
         et_all_tickets.setText("0") // 購買張數清除
         et_round_trip.setText("0")  // 來回組數清除
@@ -78,14 +80,26 @@ class MainActivity : AppCompatActivity() {
 
     // 購票流程(按下購買鈕)
     fun buyTicket(view: View) {
-        // 檢驗票務資訊
 
         // 進行購票
         val allTickets = et_all_tickets.text.toString().toInt()
         val roundTrip = et_round_trip.text.toString().toInt()
-        val ticket = TicketService().submit(allTickets, roundTrip, userName, ticketsStock)
-        var result = resources.getString(R.string.submit_detail_txt)
-        tv_result.text = String.format(result, ticket.allTickets, ticket.roundTrip, ticket.oneWay, ticket.total)
+        try {
+            val ticket = TicketService().submit(allTickets, roundTrip, userName, ticketsStock)
+            if (ticket != null) {
+                var result = resources.getString(R.string.submit_detail_txt)
+                tv_result.text = String.format(
+                    result,
+                    ticket.allTickets,
+                    ticket.roundTrip,
+                    ticket.oneWay,
+                    ticket.total
+                )
+            }
+        } catch (e: Exception) {
+            tv_warning.text = e.message
+        }
+
     }
 
 }
