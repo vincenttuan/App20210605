@@ -14,14 +14,21 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app_animal" />
             <option value="$PROJECT_DIR$/app_databinding_basic" />
+            <option value="$PROJECT_DIR$/app_databinding_recyclerview" />
+            <option value="$PROJECT_DIR$/app_databinding_recyclerview_retrofit" />
+            <option value="$PROJECT_DIR$/app_databinding_retrofit" />
+            <option value="$PROJECT_DIR$/app_databinding_viewmodel" />
+            <option value="$PROJECT_DIR$/app_notification" />
+            <option value="$PROJECT_DIR$/app_notification_firebase" />
             <option value="$PROJECT_DIR$/app_retrofit" />
             <option value="$PROJECT_DIR$/app_retrofit_animal" />
             <option value="$PROJECT_DIR$/app_retrofit_crud" />
+            <option value="$PROJECT_DIR$/app_ticket_firebase" />
+            <option value="$PROJECT_DIR$/app_tictactoe_firebase" />
             <option value="$PROJECT_DIR$/app_transservice" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
