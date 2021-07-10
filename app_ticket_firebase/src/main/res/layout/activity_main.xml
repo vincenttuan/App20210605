@@ -197,6 +197,7 @@
 
     <!-- 結帳資訊 -->
     <LinearLayout
+        android:background="@drawable/border"
         android:orientation="vertical"
         android:layout_margin="15dp"
         android:layout_width="match_parent"
