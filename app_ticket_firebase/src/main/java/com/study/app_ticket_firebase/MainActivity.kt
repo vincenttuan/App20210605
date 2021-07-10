@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.study.app_ticket_firebase.models.TicketsStock
+import com.study.app_ticket_firebase.services.TicketService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -82,11 +83,9 @@ class MainActivity : AppCompatActivity() {
         // 進行購票
         val allTickets = et_all_tickets.text.toString().toInt()
         val roundTrip = et_round_trip.text.toString().toInt()
-        val oneWay = allTickets - (roundTrip*2)
-        val total = ((allTickets - oneWay) * ticketsStock.discount + oneWay) * ticketsStock.price
-
+        val ticket = TicketService().submit(allTickets, roundTrip, userName, ticketsStock)
         var result = resources.getString(R.string.submit_detail_txt)
-        tv_result.text = String.format(result, allTickets, roundTrip, oneWay, total.toInt())
+        tv_result.text = String.format(result, ticket.allTickets, ticket.roundTrip, ticket.oneWay, ticket.total)
     }
 
 }
