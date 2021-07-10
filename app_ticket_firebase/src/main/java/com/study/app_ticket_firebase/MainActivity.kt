@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         val allTickets = et_all_tickets.text.toString().toInt()
         val roundTrip = et_round_trip.text.toString().toInt()
         try {
+            TicketService.errorMessages = resources.getStringArray(R.array.exception_message_array)
             val ticket = TicketService().submit(allTickets, roundTrip, userName, ticketsStock)
             if (ticket != null) {
                 var result = resources.getString(R.string.submit_detail_txt)
