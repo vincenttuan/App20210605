@@ -82,7 +82,13 @@ class MainActivity : AppCompatActivity() {
 
     // 購票流程(按下購買鈕)
     fun buyTicket(view: View) {
-
+        // 檢查 UI 欄位資料
+        if(et_all_tickets.text.toString().length == 0) {
+            return
+        }
+        if(et_round_trip.text.toString().length == 0) {
+            return
+        }
         // 進行購票
         val allTickets = et_all_tickets.text.toString().toInt()
         val roundTrip = et_round_trip.text.toString().toInt()
