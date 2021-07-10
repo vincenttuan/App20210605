@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                     ticket.oneWay,
                     ticket.total
                 )
+                tv_warning.text = resources.getString(R.string.warning_txt)
             }
         } catch (e: Exception) {
             tv_warning.text = e.message
