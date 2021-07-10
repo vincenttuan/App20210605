@@ -77,7 +77,16 @@ class MainActivity : AppCompatActivity() {
 
     // 購票流程(按下購買鈕)
     fun buyTicket(view: View) {
+        // 檢驗票務資訊
 
+        // 進行購票
+        val allTickets = et_all_tickets.text.toString().toInt()
+        val roundTrip = et_round_trip.text.toString().toInt()
+        val oneWay = allTickets - (roundTrip*2)
+        val total = ((allTickets - oneWay) * ticketsStock.discount + oneWay) * ticketsStock.price
+
+        var result = resources.getString(R.string.submit_detail_txt)
+        tv_result.text = String.format(result, allTickets, roundTrip, oneWay, total.toInt())
     }
 
 }
