@@ -16,6 +16,7 @@
     <EditText
         android:id="@+id/et_username"
         android:hint="@string/username_hint_txt"
+        android:text="John"
         android:textSize="30dp"
         android:padding="20dp"
         android:layout_marginLeft="50dp"

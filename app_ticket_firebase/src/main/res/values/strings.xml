@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">App_Ticket_Firebase</string>
     <!-- activity_main -->
+    <string name="activity_main_title_text">雲端購票 - %s</string>
     <string name="default_1000">1000</string>
     <string name="default_7">7.0</string>
     <string name="default_10">10</string>
@@ -16,6 +17,7 @@
     <string name="submit_detail_txt">總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d</string>
     <string name="warning_txt">購買成功 !</string>
     <!-- activity_login -->
+    <string name="activity_login_title_text">雲端購票 - 登入</string>
     <string name="username_hint_txt">請輸入帳號</string>
     <string name="order_login_txt">訂票登入</string>
     <string name="console_login_txt">後台登入</string>
