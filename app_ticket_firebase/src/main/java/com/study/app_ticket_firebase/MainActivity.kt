@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 myRef.child("totalAmount").setValue(updateAmount)
 
                 // 2. 新增訂單紀錄資料
-                val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+                val sdf = SimpleDateFormat("yyyyMMddHHmmssSSS")
                 val dateString = sdf.format(Date())
                 val subPath = "transaction/" + userName + "/" + dateString + "/"
                 myRef.child(subPath + "allTickets").setValue(ticket.allTickets)
