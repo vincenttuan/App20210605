@@ -11,4 +11,6 @@
     <string name="clear_txt">清除</string>
     <string name="record_txt">紀錄</string>
     <string name="buy_txt">購買</string>
+    <string name="submit_info_txt">結帳資訊</string>
+    <string name="submit_detail_txt">總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d</string>
 </resources>
