@@ -3,6 +3,7 @@ package com.study.app_ticket_firebase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,13 +26,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         context = this
+
         // Get userName
         userName = intent.getStringExtra("userName").toString()
+
         // Set activity title
         title = String.format(title.toString(), userName)
                              // 雲端購票 - %s
         // new TicketsStock
         ticketsStock = TicketsStock(0.0, 0, 0)
+
         // Read from the database
         myRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -51,12 +55,24 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        // clear 訂單資料
+        clear(null)
     }
 
     fun refreshUI() {
         tv_ticket_discount.text = ticketsStock.discount.toString()
         tv_ticket_price.text = ticketsStock.price.toString()
         tv_total_amount.text = ticketsStock.totalAmount.toString()
+    }
+
+    fun clear(view: View?) {
+        // 清除結帳資訊內容
+        var result = resources.getString(R.string.submit_detail_txt) // 總張數：%d\n來回票：%d\n單程票：%d\n總金額：$%d
+        tv_result.text = String.format(result, 0, 0, 0, 0)
+        et_all_tickets.setText("0") // 購買張數清除
+        et_round_trip.setText("0")  // 來回組數清除
+        tv_warning.text = ""       // 警告訊息清除
+
     }
 
 }
