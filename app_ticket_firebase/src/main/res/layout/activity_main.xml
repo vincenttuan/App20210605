@@ -177,6 +177,7 @@
 
         <Button
             android:text="@string/record_txt"
+            android:onClick="viewOrderList"
             android:textSize="25dp"
             android:padding="10dp"
             android:layout_margin="5dp"

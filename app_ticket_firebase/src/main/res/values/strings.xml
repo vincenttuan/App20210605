@@ -21,4 +21,6 @@
     <string name="username_hint_txt">請輸入帳號</string>
     <string name="order_login_txt">訂票登入</string>
     <string name="console_login_txt">後台登入</string>
+    <!-- activity_order_list -->
+    <string name="activity_order_list_title_text">雲端購票紀錄</string>
 </resources>

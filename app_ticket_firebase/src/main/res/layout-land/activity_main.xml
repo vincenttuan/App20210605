@@ -177,6 +177,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:onClick="clear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -188,6 +189,7 @@
                     android:textSize="25dp" />
 
                 <Button
+                    android:onClick="viewOrderList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -198,6 +200,7 @@
                     android:textSize="25dp" />
 
                 <Button
+                    android:onClick="buyTicket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"

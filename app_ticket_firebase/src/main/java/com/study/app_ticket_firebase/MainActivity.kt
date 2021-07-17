@@ -1,6 +1,7 @@
 package com.study.app_ticket_firebase
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -128,4 +129,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun viewOrderList(view: View) {
+        val intent = Intent(context, OrderListActivity::class.java)
+        // 將 userName 帶給 OrderListActivity
+        intent.putExtra("userName", userName)
+        startActivity(intent)
+    }
 }

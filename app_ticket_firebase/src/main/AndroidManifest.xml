@@ -9,17 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App20210605">
-        <activity android:name=".LoginActivity"
-                  android:label="@string/activity_login_title_text">
+        <activity android:name=".OrderListActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/activity_login_title_text">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-                  android:label="@string/activity_main_title_text"
-                  android:parentActivityName=".LoginActivity"/>
-
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/activity_main_title_text"
+            android:parentActivityName=".LoginActivity" />
     </application>
 
 </manifest>
