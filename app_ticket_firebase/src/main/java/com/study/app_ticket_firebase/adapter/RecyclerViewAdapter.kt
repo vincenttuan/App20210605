@@ -27,7 +27,8 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.OrderView
             allTickets.text = order.ticket.allTickets.toString()
             roundTrip.text  = order.ticket.roundTrip.toString()
             onWay.text      = order.ticket.oneWay.toString()
-            total.text      = order.ticket.total.toString()
+            total.text      = String.format("%,d", order.ticket.total)
+            total.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
         }
     }
 
