@@ -133,9 +133,16 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
     override fun onItemLongClickListener(order: Order) {
         // 組合訂單路徑
         val path = "transaction/" + order.ticket.userName + "/" + order.key
-        // 刪除訂單路徑資料
-        myRef.child(path).removeValue()
-
+        AlertDialog.Builder(context)
+            .setTitle("票務處置")
+            .setMessage("票券: ${order.ticket.userName} [ ${order.key} ]")
+            .setPositiveButton("退票") { dialog, which ->
+                // 刪除訂單路徑資料
+                myRef.child(path).removeValue()
+            }
+            .setNegativeButton("取消", null)
+            .create()
+            .show()
         Toast.makeText(context, "long click:" + order.toString(), Toast.LENGTH_SHORT).show()
     }
 }
