@@ -36,24 +36,35 @@ class OrderListActivity : AppCompatActivity() {
 
         // Read from the databse
         myRef.addValueEventListener(object : ValueEventListener {
+            val orderList = mutableListOf<Order>()
             override fun onDataChange(snapshot: DataSnapshot) {
-                val orderList = mutableListOf<Order>()
                 val children = snapshot.children
                 children.forEach {
                     if (it.key.toString() == "transaction") {
-                        it.child(userName).children.forEach {
-                            val key = it.key.toString()
-                            val allTickets = it.child("allTickets").value.toString().toInt()
-                            val roundTrip = it.child("roundTrip").value.toString().toInt()
-                            val oneWay = it.child("oneWay").value.toString().toInt()
-                            val total = it.child("total").value.toString().toInt()
-                            val ticket = Ticket(userName, allTickets, roundTrip, oneWay, total)
-                            val order = Order(key, ticket)
-                            orderList.add(order)
+                        // 未指名 userName
+                        if (userName == null || userName.equals("") || userName.equals("null")) {
+                            it.children.forEach { record ->
+                                addRecord(it, record.key.toString())
+                            }
+                        } else { // 有指名 userName
+                            addRecord(it, userName)
                         }
                     }
                 }
                 tv_info.text = orderList.toString()
+            }
+
+            private fun addRecord(it: DataSnapshot, userName: String) {
+                it.child(userName).children.forEach {
+                    val key = it.key.toString()
+                    val allTickets = it.child("allTickets").value.toString().toInt()
+                    val roundTrip = it.child("roundTrip").value.toString().toInt()
+                    val oneWay = it.child("oneWay").value.toString().toInt()
+                    val total = it.child("total").value.toString().toInt()
+                    val ticket = Ticket(userName, allTickets, roundTrip, oneWay, total)
+                    val order = Order(key, ticket)
+                    orderList.add(order)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
