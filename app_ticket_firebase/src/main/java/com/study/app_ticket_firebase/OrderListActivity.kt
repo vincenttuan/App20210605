@@ -182,6 +182,7 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
 
     // 根據 ticket's total 排序
     fun ticketTotalSort(view: View) {
+        Order.orderDelta *= -1
         val orderList = recyclerViewAdapter.getOrderList()
         Collections.sort(orderList)
         recyclerViewAdapter.notifyDataSetChanged()
