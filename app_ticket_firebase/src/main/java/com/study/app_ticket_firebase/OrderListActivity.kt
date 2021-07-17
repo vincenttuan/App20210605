@@ -36,11 +36,14 @@ class OrderListActivity : AppCompatActivity() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val children = snapshot.children
-                var keys = ""
-                children.forEach {
-                    keys += it.key.toString() + ","
+                 children.forEach {
+                    if(it.key.toString() == "transaction") {
+                        it.child(userName).children.forEach {
+                            tv_info.text = tv_info.text.toString() + it.toString()
+                        }
+                    }
                 }
-                tv_info.text = keys
+
             }
 
             override fun onCancelled(error: DatabaseError) {
