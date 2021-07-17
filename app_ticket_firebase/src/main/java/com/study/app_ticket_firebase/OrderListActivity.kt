@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -182,7 +183,13 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
 
     // 根據 ticket's total 排序
     fun ticketTotalSort(view: View) {
+        // △ ▽ ▲ ▼
         Order.orderDelta *= -1
+        if(Order.orderDelta == -1) {
+            (view as TextView).text = resources.getString(R.string.total_text) + "▼"
+        } else {
+            (view as TextView).text = resources.getString(R.string.total_text) + "▲"
+        }
         val orderList = recyclerViewAdapter.getOrderList()
         Collections.sort(orderList)
         recyclerViewAdapter.notifyDataSetChanged()

@@ -24,4 +24,5 @@
     <!-- activity_order_list -->
     <string name="activity_order_list_title_text">雲端購票紀錄 - %s</string>
     <string name="all_order_text">所有訂單記錄</string>
+    <string name="total_text">金額</string>
 </resources>
