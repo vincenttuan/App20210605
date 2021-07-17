@@ -15,6 +15,10 @@ class RecyclerViewAdapter(val listener: OrderOnItemClickListener) : RecyclerView
         this.orderList = orderList
     }
 
+    fun getOrderList(): List<Order> {
+        return this.orderList
+    }
+
     // View 配置方式
     class OrderViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val key        = view.tv_key

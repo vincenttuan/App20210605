@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -74,16 +75,21 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
             }
 
             private fun addRecord(it: DataSnapshot, userName: String) {
-                it.child(userName).children.forEach {
-                    val key = it.key.toString()
-                    val allTickets = it.child("allTickets").value.toString().toInt()
-                    val roundTrip = it.child("roundTrip").value.toString().toInt()
-                    val oneWay = it.child("oneWay").value.toString().toInt()
-                    val total = it.child("total").value.toString().toInt()
-                    val ticket = Ticket(userName, allTickets, roundTrip, oneWay, total)
-                    val order = Order(key, ticket)
-                    orderList.add(order)
+                try { // try-catch 解決按下紀錄之後返回訂票成功之後會發生 null 錯誤的問題
+                    it.child(userName).children.forEach {
+                        val key = it.key.toString()
+                        val allTickets = it.child("allTickets").value.toString().toInt()
+                        val roundTrip = it.child("roundTrip").value.toString().toInt()
+                        val oneWay = it.child("oneWay").value.toString().toInt()
+                        val total = it.child("total").value.toString().toInt()
+                        val ticket = Ticket(userName, allTickets, roundTrip, oneWay, total)
+                        val order = Order(key, ticket)
+                        orderList.add(order)
+                    }
+                } catch (e: Exception) {
+
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -172,5 +178,12 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
             .create()
             .show()
         Toast.makeText(context, "long click:" + order.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    // 根據 ticket's total 排序
+    fun ticketTotalSort(view: View) {
+        val orderList = recyclerViewAdapter.getOrderList()
+        Collections.sort(orderList)
+        recyclerViewAdapter.notifyDataSetChanged()
     }
 }

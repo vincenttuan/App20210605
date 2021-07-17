@@ -1,3 +1,8 @@
 package com.study.app_ticket_firebase.models
 
-data class Order(val key: String, val ticket: Ticket)
+data class Order(val key: String, val ticket: Ticket) : Comparable<Order> {
+    override fun compareTo(order: Order): Int {
+        return  order.ticket.total - ticket.total
+    }
+
+}
