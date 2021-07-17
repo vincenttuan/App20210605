@@ -139,6 +139,20 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
             .setPositiveButton("退票") { dialog, which ->
                 // 刪除訂單路徑資料
                 myRef.child(path).removeValue()
+                // 加回所退回的數量
+                // firebase's totalAmount 要加回所退回的數量(order.ticket.allTickets)
+                myRef.child("totalAmount").addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val totalAmount = snapshot.value.toString().toInt()
+                        val newTotalAmount = totalAmount + order.ticket.allTickets
+                        myRef.child("totalAmount").setValue(newTotalAmount)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
             }
             .setNegativeButton("取消", null)
             .create()
