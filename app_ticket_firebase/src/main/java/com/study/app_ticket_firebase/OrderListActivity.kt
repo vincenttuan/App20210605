@@ -3,6 +3,7 @@ package com.study.app_ticket_firebase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,7 +15,7 @@ import com.study.app_ticket_firebase.models.Order
 import com.study.app_ticket_firebase.models.Ticket
 import kotlinx.android.synthetic.main.activity_order_list.*
 
-class OrderListActivity : AppCompatActivity() {
+class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemClickListener {
     val database = Firebase.database
     val myRef = database.getReference("ticketsStock")
 
@@ -83,9 +84,17 @@ class OrderListActivity : AppCompatActivity() {
         // Init RecyclerView
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            recyclerViewAdapter = RecyclerViewAdapter()
+            recyclerViewAdapter = RecyclerViewAdapter(this@OrderListActivity)
             adapter = recyclerViewAdapter
         }
 
+    }
+
+    override fun onItemClickListener(order: Order) {
+        Toast.makeText(context, "click:" + order.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemLongClickListener(order: Order) {
+        Toast.makeText(context, "long click:" + order.toString(), Toast.LENGTH_SHORT).show()
     }
 }

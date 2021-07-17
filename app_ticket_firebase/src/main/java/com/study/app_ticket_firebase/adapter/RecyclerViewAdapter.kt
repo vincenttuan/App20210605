@@ -9,7 +9,7 @@ import com.study.app_ticket_firebase.models.Order
 import kotlinx.android.synthetic.main.order.view.*
 
 // 適配器（配置每一筆訂單記錄）
-class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.OrderViewHolder>() {
+class RecyclerViewAdapter(val listener: OrderOnItemClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.OrderViewHolder>() {
     private var orderList: List<Order> = ArrayList<Order>()
     fun setOrderList(orderList: List<Order>) {
         this.orderList = orderList
@@ -40,10 +40,22 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.OrderView
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orderList[position]
+        holder.itemView.setOnClickListener {
+            listener.onItemClickListener(order)
+        }
+        holder.itemView.setOnLongClickListener {
+            listener.onItemLongClickListener(order)
+            true
+        }
         holder.bind(order)
     }
 
     override fun getItemCount(): Int {
         return orderList.size
+    }
+
+    interface OrderOnItemClickListener {
+        fun onItemClickListener(order: Order)
+        fun onItemLongClickListener(order: Order)
     }
 }
