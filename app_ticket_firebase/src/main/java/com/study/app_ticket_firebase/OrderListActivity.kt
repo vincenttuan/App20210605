@@ -3,11 +3,13 @@ package com.study.app_ticket_firebase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.study.app_ticket_firebase.adapter.RecyclerViewAdapter
 import com.study.app_ticket_firebase.models.Order
 import com.study.app_ticket_firebase.models.Ticket
 import kotlinx.android.synthetic.main.activity_order_list.*
@@ -18,6 +20,7 @@ class OrderListActivity : AppCompatActivity() {
 
     lateinit var context: Context
     lateinit var userName: String
+    lateinit var recyclerViewAdapter: RecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,10 @@ class OrderListActivity : AppCompatActivity() {
                     }
                 }
                 tv_info.text = orderList.toString()
+                // 更新 recycler view 的 orderList 資料
+                recyclerViewAdapter.setOrderList(orderList)
+                // 通知變更(UI 刷新)
+                recyclerViewAdapter.notifyDataSetChanged()
             }
 
             private fun addRecord(it: DataSnapshot, userName: String) {
@@ -73,6 +80,12 @@ class OrderListActivity : AppCompatActivity() {
 
         })
 
+        // Init RecyclerView
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            recyclerViewAdapter = RecyclerViewAdapter()
+            adapter = recyclerViewAdapter
+        }
 
     }
 }
