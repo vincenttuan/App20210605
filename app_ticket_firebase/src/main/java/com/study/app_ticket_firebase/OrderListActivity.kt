@@ -22,6 +22,8 @@ import com.study.app_ticket_firebase.adapter.RecyclerViewAdapter
 import com.study.app_ticket_firebase.models.Order
 import com.study.app_ticket_firebase.models.Ticket
 import kotlinx.android.synthetic.main.activity_order_list.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemClickListener {
     val database = Firebase.database
@@ -151,8 +153,20 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
                     override fun onCancelled(error: DatabaseError) {
 
                     }
-
                 })
+                // 寫入退票紀錄檔
+                // firebase "transaction_refund"
+                val sdf = SimpleDateFormat("yyyyMMddHHmmssSSS")
+                val dateString = sdf.format(Date())
+                val orderJsonString = Gson().toJson(order).toString()
+                myRef.child("transaction_refund/" + dateString + "/order/json").setValue(orderJsonString)
+                myRef.child("transaction_refund/" + dateString + "/order/key").setValue(order.key)
+                myRef.child("transaction_refund/" + dateString + "/order/ticket/userName").setValue(order.ticket.userName)
+                myRef.child("transaction_refund/" + dateString + "/order/ticket/allTickets").setValue(order.ticket.allTickets)
+                myRef.child("transaction_refund/" + dateString + "/order/ticket/roundTrip").setValue(order.ticket.roundTrip)
+                myRef.child("transaction_refund/" + dateString + "/order/ticket/oneWay").setValue(order.ticket.oneWay)
+                myRef.child("transaction_refund/" + dateString + "/order/ticket/total").setValue(order.ticket.total)
+
             }
             .setNegativeButton("取消", null)
             .create()
