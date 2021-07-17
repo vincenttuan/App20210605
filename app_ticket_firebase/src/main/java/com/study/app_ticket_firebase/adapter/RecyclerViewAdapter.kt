@@ -17,12 +17,14 @@ class RecyclerViewAdapter(val listener: OrderOnItemClickListener) : RecyclerView
 
     // View 配置方式
     class OrderViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        private val key        = view.tv_key
         private val userName   = view.tv_userName
         private val allTickets = view.tv_allTickets
         private val roundTrip  = view.tv_roundTrip
         private val onWay      = view.tv_oneWay
         private val total      = view.tv_total
         fun bind(order: Order) {
+            key.text        = "key：${order.key}"
             userName.text   = order.ticket.userName
             allTickets.text = order.ticket.allTickets.toString()
             roundTrip.text  = order.ticket.roundTrip.toString()

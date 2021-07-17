@@ -18,7 +18,7 @@
             android:layout_height="match_parent"/>
     </ScrollView>
     <!-- 訂單列表抬頭 -->
-    <include layout="@layout/order" />
+    <include layout="@layout/order_title" />
     <!-- 訂單列表資訊 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
