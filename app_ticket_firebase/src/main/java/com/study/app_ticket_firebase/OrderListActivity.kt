@@ -48,8 +48,9 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
 
         // Read from the databse
         myRef.addValueEventListener(object : ValueEventListener {
-            val orderList = mutableListOf<Order>()
+            lateinit var orderList: MutableList<Order>
             override fun onDataChange(snapshot: DataSnapshot) {
+                orderList = mutableListOf<Order>()
                 val children = snapshot.children
                 children.forEach {
                     if (it.key.toString() == "transaction") {
@@ -98,6 +99,7 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
 
     }
 
+    // 按一下可以產生 QR-Code
     override fun onItemClickListener(order: Order) {
         // 產生 Json
         val orderJsonString = Gson().toJson(order).toString()
@@ -127,7 +129,13 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
             .show()
     }
 
+    // 長按一下可以取消訂單(退票)
     override fun onItemLongClickListener(order: Order) {
+        // 組合訂單路徑
+        val path = "transaction/" + order.ticket.userName + "/" + order.key
+        // 刪除訂單路徑資料
+        myRef.child(path).removeValue()
+
         Toast.makeText(context, "long click:" + order.toString(), Toast.LENGTH_SHORT).show()
     }
 }
