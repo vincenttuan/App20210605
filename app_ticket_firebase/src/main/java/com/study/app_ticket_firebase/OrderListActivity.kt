@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.study.app_ticket_firebase.models.Order
+import com.study.app_ticket_firebase.models.Ticket
 import kotlinx.android.synthetic.main.activity_order_list.*
 
 class OrderListActivity : AppCompatActivity() {
@@ -35,15 +37,23 @@ class OrderListActivity : AppCompatActivity() {
         // Read from the databse
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val orderList = mutableListOf<Order>()
                 val children = snapshot.children
-                 children.forEach {
-                    if(it.key.toString() == "transaction") {
+                children.forEach {
+                    if (it.key.toString() == "transaction") {
                         it.child(userName).children.forEach {
-                            tv_info.text = tv_info.text.toString() + it.toString()
+                            val key = it.key.toString()
+                            val allTickets = it.child("allTickets").value.toString().toInt()
+                            val roundTrip = it.child("roundTrip").value.toString().toInt()
+                            val oneWay = it.child("oneWay").value.toString().toInt()
+                            val total = it.child("total").value.toString().toInt()
+                            val ticket = Ticket(userName, allTickets, roundTrip, oneWay, total)
+                            val order = Order(key, ticket)
+                            orderList.add(order)
                         }
                     }
                 }
-
+                tv_info.text = orderList.toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
