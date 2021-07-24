@@ -146,6 +146,28 @@
         </LinearLayout>
 
         <!-- 票務統計 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/stat_text"
+                android:textSize="25dp"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_stat"
+                android:text="..."
+                android:textSize="25dp"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
         <!-- 票務統計圖 -->
 
