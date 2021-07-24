@@ -87,7 +87,7 @@ class ConsoleActivity : AppCompatActivity() {
                                 "總來回票：${ String.format("%,d", sumRoundTrip) } 張\n" +
                                 "總銷售額：${ String.format("%,d", sumTotal) } 元"
                 // 顯示統計圖
-                loadChart()
+                loadChart(statListByUser)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -97,13 +97,21 @@ class ConsoleActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadChart() {
+    private fun loadChart(statListByUser: List<Map<String, Int>>) {
+        // 將 [{"AAA", 10}, {"bbb", 20} ...]
+        // 轉 "['AAA', 10],['bbb', 20], ..."
+        var args: String = ""
+        statListByUser.forEach {
+            val key = it.keys.iterator().next()
+            val value = it[key]
+            args += "['$key', $value],"
+        }
         var webSettings = web_view.settings
         webSettings.javaScriptEnabled = true
         webSettings.builtInZoomControls = true
         var asset_path = "file:///android_asset/"
         var html = getHTML("chart.html")
-        html = String.format(html!!, "['AAA', 10],['bbb', 20],")
+        html = String.format(html!!, args)
         web_view.loadDataWithBaseURL(asset_path, html!!, "text/html", "UTF-8", null)
         web_view.requestFocusFromTouch()
     }
