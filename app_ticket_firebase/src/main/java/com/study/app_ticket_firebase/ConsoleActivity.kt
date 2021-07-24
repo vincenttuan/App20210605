@@ -157,6 +157,7 @@ class ConsoleActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // group_id, item_id, order_id, name
         menu?.add(1, 1, 1, "[ - ]")?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        menu?.add(1, 2, 2, "購票紀錄")
         menu?.add(1, 9, 5, "Back")
         return super.onCreateOptionsMenu(menu)
     }
@@ -166,6 +167,11 @@ class ConsoleActivity : AppCompatActivity() {
             1 -> {
                 // 啟動 QRCodeActivity
                 val intent = Intent(context, QRCodeActivity::class.java)
+                startActivity(intent)
+            }
+            2 -> {
+                // 啟動 OrderListActivity
+                val intent = Intent(context, OrderListActivity::class.java)
                 startActivity(intent)
             }
             9 -> {
