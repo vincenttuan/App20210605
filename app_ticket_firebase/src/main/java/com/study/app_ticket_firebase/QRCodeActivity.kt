@@ -2,7 +2,9 @@ package com.study.app_ticket_firebase
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.DecodeCallback
+import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import kotlinx.android.synthetic.main.activity_qrcode.*
 
@@ -70,6 +74,39 @@ class QRCodeActivity : AppCompatActivity() {
         codeScanner.scanMode = ScanMode.SINGLE
         codeScanner.isAutoFocusEnabled = true
         codeScanner.isFlashEnabled = false
+
+        // 解碼 Callback
+        codeScanner.decodeCallback = DecodeCallback {
+            runOnUiThread {
+                val result_text = it.text // 解碼內容
+                AlertDialog.Builder(context)
+                    .setTitle("QRCode 內容")
+                    .setMessage("$result_text")
+                    .setPositiveButton("使用", {
+                            dialogInterface, i -> {  }
+                    })
+                    .setNegativeButton("取消", {
+                        dialogInterface, i -> finish()
+                    })
+                    .create()
+                    .show()
+            }
+        }
+
+        // 解碼錯誤
+        codeScanner.errorCallback = ErrorCallback {
+            runOnUiThread {
+                val message_text = it.message // 解碼內容
+                AlertDialog.Builder(context)
+                    .setTitle("錯誤內容")
+                    .setMessage("$message_text")
+                    .setNegativeButton("取消", {
+                            dialogInterface, i -> finish()
+                    })
+                    .create()
+                    .show()
+            }
+        }
 
         // 執行
         codeScanner.startPreview()
