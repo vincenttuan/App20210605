@@ -1,6 +1,7 @@
 package com.study.app_ticket_firebase
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -164,7 +165,8 @@ class ConsoleActivity : AppCompatActivity() {
         when(item.itemId) {
             1 -> {
                 // 啟動 QRCodeActivity
-
+                val intent = Intent(context, QRCodeActivity::class.java)
+                startActivity(intent)
             }
             9 -> {
                 finish()
