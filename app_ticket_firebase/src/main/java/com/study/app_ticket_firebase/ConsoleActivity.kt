@@ -3,6 +3,8 @@ package com.study.app_ticket_firebase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
@@ -149,5 +151,25 @@ class ConsoleActivity : AppCompatActivity() {
         val msg = String.format(resources.getString(R.string.update_ok), tagName)
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // group_id, item_id, order_id, name
+        menu?.add(1, 1, 1, "[ - ]")?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        menu?.add(1, 9, 5, "Back")
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            1 -> {
+                // 啟動 QRCodeActivity
+
+            }
+            9 -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
