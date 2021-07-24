@@ -23,6 +23,10 @@ class ConsoleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_console)
+
+        // 讓 tv_totalAmount 實現 selected 以便出現跑馬都
+        tv_totalAmount.isSelected = true
+
         // 在上方 ActionBar 會顯示 <- 返回箭頭
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         context = this
@@ -95,6 +99,7 @@ class ConsoleActivity : AppCompatActivity() {
             }
 
         })
+
     }
 
     private fun loadChart(statListByUser: List<Map<String, Int>>) {
