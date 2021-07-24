@@ -24,5 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
     fun consoleLogin(view: View) {
         val userName = et_username.text.toString()
+        val intent = Intent(context, ConsoleActivity::class.java)
+        intent.putExtra("userName", userName)
+        startActivity(intent)
     }
 }
