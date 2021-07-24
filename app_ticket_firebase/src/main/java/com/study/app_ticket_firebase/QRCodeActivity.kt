@@ -16,9 +16,17 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.study.app_ticket_firebase.models.Order
 import kotlinx.android.synthetic.main.activity_qrcode.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class QRCodeActivity : AppCompatActivity() {
+    private val database = Firebase.database
+    private val myRef = database.getReference("ticketsStock")
     private val PERMISSION_REQUEST_CODE = 200
     private lateinit var context: Context
     private lateinit var codeScanner: CodeScanner
@@ -82,11 +90,28 @@ class QRCodeActivity : AppCompatActivity() {
                 AlertDialog.Builder(context)
                     .setTitle("QRCode 內容")
                     .setMessage("$result_text")
-                    .setPositiveButton("使用", {
-                            dialogInterface, i -> {  }
+                    .setPositiveButton("使用", { dialogInterface, i ->
+                        {
+                            val order = Gson().fromJson<Order>(result_text, Order::class.java)
+                            // 取得該票的路徑
+                            val path = order.ticket.userName + "/" + order.key
+                            val transPath = "transaction/$path"
+                            // 刪除該票
+                            myRef.child(transPath).removeValue()
+                            // 建立 transaction_history
+                            val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()).toString()
+                            myRef.child("transaction_history/$path/ts").setValue(ts)
+                            myRef.child("transaction_history/$path/key").setValue(order.key)
+                            myRef.child("transaction_history/$path/userName").setValue(order.ticket.userName)
+                            myRef.child("transaction_history/$path/allTickets").setValue(order.ticket.allTickets)
+                            myRef.child("transaction_history/$path/oneWay").setValue(order.ticket.oneWay)
+                            myRef.child("transaction_history/$path/roundTrip").setValue(order.ticket.roundTrip)
+                            myRef.child("transaction_history/$path/total").setValue(order.ticket.total)
+                            myRef.child("transaction_history/$path/json").setValue(result_text)
+                        }
                     })
-                    .setNegativeButton("取消", {
-                        dialogInterface, i -> finish()
+                    .setNegativeButton("取消", { dialogInterface, i ->
+                        finish()
                     })
                     .create()
                     .show()
@@ -100,8 +125,8 @@ class QRCodeActivity : AppCompatActivity() {
                 AlertDialog.Builder(context)
                     .setTitle("錯誤內容")
                     .setMessage("$message_text")
-                    .setNegativeButton("取消", {
-                            dialogInterface, i -> finish()
+                    .setNegativeButton("取消", { dialogInterface, i ->
+                        finish()
                     })
                     .create()
                     .show()
