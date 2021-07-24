@@ -86,7 +86,7 @@ class ConsoleActivity : AppCompatActivity() {
         webSettings.builtInZoomControls = true
         var asset_path = "file:///android_asset/"
         var html = getHTML("chart.html")
-
+        html = String.format(html!!, "['AAA', 10],['bbb', 20],")
         web_view.loadDataWithBaseURL(asset_path, html!!, "text/html", "UTF-8", null)
         web_view.requestFocusFromTouch()
     }
