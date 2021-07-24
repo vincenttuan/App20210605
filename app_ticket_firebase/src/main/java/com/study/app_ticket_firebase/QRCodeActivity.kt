@@ -9,10 +9,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.budiyev.android.codescanner.AutoFocusMode
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.ScanMode
+import kotlinx.android.synthetic.main.activity_qrcode.*
 
 class QRCodeActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 200
     private lateinit var context: Context
+    private lateinit var codeScanner: CodeScanner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
@@ -56,6 +62,26 @@ class QRCodeActivity : AppCompatActivity() {
     // 執行ORCode程式
     fun runProgram() {
         title = "執行ORCode程式..."
+        codeScanner = CodeScanner(context, scanner_view)
+        // 設定 codescanner 參數
+        codeScanner.camera = CodeScanner.CAMERA_BACK
+        codeScanner.formats = CodeScanner.ALL_FORMATS
+        codeScanner.autoFocusMode = AutoFocusMode.SAFE
+        codeScanner.scanMode = ScanMode.SINGLE
+        codeScanner.isAutoFocusEnabled = true
+        codeScanner.isFlashEnabled = false
+
+        // 執行
+        codeScanner.startPreview()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        try {
+            codeScanner.releaseResources()
+        } catch (e: Exception) {
+
+        }
     }
 
     // 使用者是否有同意使用權限(Ex:Camera)
