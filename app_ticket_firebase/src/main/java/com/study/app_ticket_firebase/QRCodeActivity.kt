@@ -19,14 +19,16 @@ class QRCodeActivity : AppCompatActivity() {
         context = this
 
         // check permission
-        if(checkPermission()) {
+        if (checkPermission()) {
             // 執行ORCode程式
             runProgram()
         } else {
             // 啟動動態核准對話框
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(Manifest.permission.CAMERA),
-                PERMISSION_REQUEST_CODE)
+                PERMISSION_REQUEST_CODE
+            )
         }
     }
 
@@ -37,9 +39,17 @@ class QRCodeActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == PERMISSION_REQUEST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            Toast.makeText(context, grantResults[0].toString(), Toast.LENGTH_SHORT).show()
             // 執行ORCode程式
-            runProgram()
+            // grantResults[0] = 0 -> Accept
+            // grantResults[0] = -1 -> Deny
+            if (grantResults[0] == 0) {
+                runProgram()
+            } else if (grantResults[0] == -1) {
+                finish()
+            }
+
         }
     }
 
@@ -52,7 +62,7 @@ class QRCodeActivity : AppCompatActivity() {
     private fun checkPermission(): Boolean {
         val check = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
         val result = (check == PackageManager.PERMISSION_GRANTED)
-        if(result) {
+        if (result) {
             Toast.makeText(context, "Permission is OK", Toast.LENGTH_SHORT).show()
             return true;
         } else {
