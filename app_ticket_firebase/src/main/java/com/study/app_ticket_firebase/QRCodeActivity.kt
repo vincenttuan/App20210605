@@ -91,26 +91,27 @@ class QRCodeActivity : AppCompatActivity() {
                     .setTitle("QRCode 內容")
                     .setMessage("$result_text")
                     .setPositiveButton("使用", { dialogInterface, i ->
-                        {
-                            val order = Gson().fromJson<Order>(result_text, Order::class.java)
-                            // 取得該票的路徑
-                            val path = order.ticket.userName + "/" + order.key
-                            val transPath = "transaction/$path"
-                            // 刪除該票
-                            myRef.child(transPath).removeValue()
-                            // 建立 transaction_history
-                            val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()).toString()
-                            myRef.child("transaction_history/$path/ts").setValue(ts)
-                            myRef.child("transaction_history/$path/key").setValue(order.key)
-                            myRef.child("transaction_history/$path/userName").setValue(order.ticket.userName)
-                            myRef.child("transaction_history/$path/allTickets").setValue(order.ticket.allTickets)
-                            myRef.child("transaction_history/$path/oneWay").setValue(order.ticket.oneWay)
-                            myRef.child("transaction_history/$path/roundTrip").setValue(order.ticket.roundTrip)
-                            myRef.child("transaction_history/$path/total").setValue(order.ticket.total)
-                            myRef.child("transaction_history/$path/json").setValue(result_text)
-                        }
+                        val order = Gson().fromJson<Order>(result_text, Order::class.java)
+                        // 取得該票的路徑
+                        val path = order.ticket.userName + "/" + order.key
+                        val transPath = "transaction/$path"
+                        // 刪除該票
+                        myRef.child(transPath).removeValue()
+                        // 建立 transaction_history
+                        val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()).toString()
+                        myRef.child("transaction_history/$path/ts").setValue(ts)
+                        myRef.child("transaction_history/$path/key").setValue(order.key)
+                        myRef.child("transaction_history/$path/userName").setValue(order.ticket.userName)
+                        myRef.child("transaction_history/$path/allTickets").setValue(order.ticket.allTickets)
+                        myRef.child("transaction_history/$path/oneWay").setValue(order.ticket.oneWay)
+                        myRef.child("transaction_history/$path/roundTrip").setValue(order.ticket.roundTrip)
+                        myRef.child("transaction_history/$path/total").setValue(order.ticket.total)
+                        myRef.child("transaction_history/$path/json").setValue(result_text)
+                        // 結束
+                        finish()
                     })
                     .setNegativeButton("取消", { dialogInterface, i ->
+                        // 結束
                         finish()
                     })
                     .create()
