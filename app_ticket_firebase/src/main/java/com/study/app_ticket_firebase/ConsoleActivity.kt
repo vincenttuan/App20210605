@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 
 class ConsoleActivity : AppCompatActivity() {
     private lateinit var userName: String
@@ -22,6 +23,7 @@ class ConsoleActivity : AppCompatActivity() {
     }
 
     fun update(view: View) {
-
+        val tagName = view.tag.toString()
+        Toast.makeText(context, tagName, Toast.LENGTH_SHORT).show()
     }
 }
