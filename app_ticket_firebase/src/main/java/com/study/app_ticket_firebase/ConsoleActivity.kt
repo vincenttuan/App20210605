@@ -37,7 +37,7 @@ class ConsoleActivity : AppCompatActivity() {
                     when(it.key.toString()) {
                         "discount" -> et_discount.setText(it.value.toString())
                         "price" -> et_price.setText(it.value.toString())
-                        "totalAmount" -> et_amount.setText(it.value.toString())
+                        "totalAmount" -> et_totalAmount.setText(it.value.toString())
                     }
                 }
             }
@@ -51,6 +51,15 @@ class ConsoleActivity : AppCompatActivity() {
 
     fun update(view: View) {
         val tagName = view.tag.toString()
-        Toast.makeText(context, tagName, Toast.LENGTH_SHORT).show()
+        var value = 0.0
+        when(tagName) {
+            "discount" -> value = et_discount.text.toString().toDouble()
+            "price" -> value = et_price.text.toString().toDouble()
+            "totalAmount" -> value = et_totalAmount.text.toString().toDouble()
+        }
+        myRef.child(tagName).setValue(value)
+        val msg = String.format(resources.getString(R.string.update_ok), tagName)
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
     }
 }
