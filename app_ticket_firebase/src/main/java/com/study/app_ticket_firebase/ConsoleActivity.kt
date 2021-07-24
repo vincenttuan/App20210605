@@ -3,6 +3,7 @@ package com.study.app_ticket_firebase
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 
 class ConsoleActivity : AppCompatActivity() {
     private lateinit var userName: String
@@ -18,5 +19,9 @@ class ConsoleActivity : AppCompatActivity() {
 
         // Set activity title
         title = String.format(title.toString(), userName)
+    }
+
+    fun update(view: View) {
+
     }
 }

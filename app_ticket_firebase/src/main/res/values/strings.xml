@@ -27,5 +27,8 @@
     <string name="total_text">金額</string>
     <!-- activity_console -->
     <string name="activity_console_title_text">雲端後台 - %s</string>
-
+    <string name="discount_text">Discount</string>
+    <string name="price_text">Price</string>
+    <string name="amount_text">Amount</string>
+    <string name="update_text">Update</string>
 </resources>
