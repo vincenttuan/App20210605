@@ -41,6 +41,9 @@ class ConsoleActivity : AppCompatActivity() {
                 var sumOneWay = 0
                 var sumRoundTrip = 0
                 var sumTotal = 0
+                // 個別訂購人的統計資料列表
+                // [{"Helen", 100}, {"John", 50} ...]
+                var statListByUser = mutableListOf<Map<String, Int>>()
                 // -- forEach begin ---------------
                 children.forEach {
                     when(it.key.toString()) {
@@ -49,16 +52,30 @@ class ConsoleActivity : AppCompatActivity() {
                         resources.getString(R.string.fb_totalAmount) -> et_totalAmount.setText(it.value.toString())
                         "transaction" -> {
                             it.children.forEach {  // 訂購人, ex: Helen
+                                // 當前訂購人與訂購總金額
+                                var mapUser = mutableMapOf<String, Int>()
+                                // 當前訂購人名
+                                val mapUserName = it.key.toString()
+                                // 預設當前訂購人與訂購總金額 = 0
+                                mapUser.put(mapUserName, 0)
+
                                 it.children.forEach {  // 訂票日期, ex: 20210717093440753
                                     it.children.forEach {  // 訂票內容
                                         when(it.key.toString()) {
                                             "allTickets" -> sumAllTickets += it.value.toString().toInt()
                                             "oneWay" -> sumOneWay += it.value.toString().toInt()
                                             "roundTrip" -> sumRoundTrip += it.value.toString().toInt()
-                                            "total" -> sumTotal += it.value.toString().toInt()
+                                            "total" -> {
+                                                val total = it.value.toString().toInt()
+                                                sumTotal += total
+                                                // 累計當前訂購人的訂購總金額
+                                                mapUser.put(mapUserName, mapUser.get(mapUserName)!! + total)
+                                            }
                                         }
                                     }
                                 }
+                                // 將訂購人與訂購總金額(mapUser)放入個別訂購人的統計資料列表(statListByUser)
+                                statListByUser.add(mapUser)
                             }
                         }
                     }
