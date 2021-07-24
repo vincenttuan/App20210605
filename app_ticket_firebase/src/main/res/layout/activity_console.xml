@@ -53,7 +53,7 @@
                     android:padding="10dp"
                     android:layout_weight="1"
                     android:onClick="update"
-                    android:tag="discount"
+                    android:tag="@string/fb_discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -95,13 +95,13 @@
                     android:padding="10dp"
                     android:layout_weight="1"
                     android:onClick="update"
-                    android:tag="price"
+                    android:tag="@string/fb_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-            <!-- Amount 設定 -->
+            <!-- Total Amount 設定 -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                     android:padding="10dp"
                     android:layout_weight="1"
                     android:onClick="update"
-                    android:tag="totalAmount"
+                    android:tag="@string/fb_totalAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

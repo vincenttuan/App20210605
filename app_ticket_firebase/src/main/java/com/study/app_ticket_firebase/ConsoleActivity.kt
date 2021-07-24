@@ -35,9 +35,9 @@ class ConsoleActivity : AppCompatActivity() {
                 val children = snapshot.children
                 children.forEach {
                     when(it.key.toString()) {
-                        "discount" -> et_discount.setText(it.value.toString())
-                        "price" -> et_price.setText(it.value.toString())
-                        "totalAmount" -> et_totalAmount.setText(it.value.toString())
+                        resources.getString(R.string.fb_discount) -> et_discount.setText(it.value.toString())
+                        resources.getString(R.string.fb_price) -> et_price.setText(it.value.toString())
+                        resources.getString(R.string.fb_totalAmount) -> et_totalAmount.setText(it.value.toString())
                     }
                 }
             }
@@ -53,10 +53,11 @@ class ConsoleActivity : AppCompatActivity() {
         val tagName = view.tag.toString()
         var value = 0.0
         when(tagName) {
-            "discount" -> value = et_discount.text.toString().toDouble()
-            "price" -> value = et_price.text.toString().toDouble()
-            "totalAmount" -> value = et_totalAmount.text.toString().toDouble()
+            resources.getString(R.string.fb_discount) -> value = et_discount.text.toString().toDouble()
+            resources.getString(R.string.fb_price) -> value = et_price.text.toString().toDouble()
+            resources.getString(R.string.fb_totalAmount) -> value = et_totalAmount.text.toString().toDouble()
         }
+        // update firebase
         myRef.child(tagName).setValue(value)
         val msg = String.format(resources.getString(R.string.update_ok), tagName)
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
