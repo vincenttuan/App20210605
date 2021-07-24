@@ -123,10 +123,10 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
         // 產生 bitmap 空間
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
         // 將 bitMatrix 矩陣資料 注入到 bitmap 空間
-        for(x in 0 until width) {
-            for(y in 0 until height) {
+        for (x in 0 until width) {
+            for (y in 0 until height) {
                 // 有資料放黑色反之白色
-                bitmap.setPixel(x, y, if(bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+                bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
             }
         }
         // 建立自製 ImageView
@@ -141,37 +141,37 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
 
     // 使用票券
     private fun useTicket(order: Order) {
-        runOnUiThread {
-            val result_text = Gson().toJson(order, Order::class.java) // 解碼內容
-            AlertDialog.Builder(context)
-                .setTitle("QRCode 內容")
-                .setMessage("$result_text")
-                .setPositiveButton("使用", { dialogInterface, i ->
-                    // 取得該票的路徑
-                    val path = order.ticket.userName + "/" + order.key
-                    val transPath = "transaction/$path"
-                    // 刪除該票
-                    myRef.child(transPath).removeValue()
-                    // 建立 transaction_history
-                    val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()).toString()
-                    myRef.child("transaction_history/$path/ts").setValue(ts)
-                    myRef.child("transaction_history/$path/key").setValue(order.key)
-                    myRef.child("transaction_history/$path/userName").setValue(order.ticket.userName)
-                    myRef.child("transaction_history/$path/allTickets").setValue(order.ticket.allTickets)
-                    myRef.child("transaction_history/$path/oneWay").setValue(order.ticket.oneWay)
-                    myRef.child("transaction_history/$path/roundTrip").setValue(order.ticket.roundTrip)
-                    myRef.child("transaction_history/$path/total").setValue(order.ticket.total)
-                    myRef.child("transaction_history/$path/json").setValue(result_text)
-                    // 結束
-                    finish()
-                })
-                .setNegativeButton("取消", { dialogInterface, i ->
-                    // 結束
-                    finish()
-                })
-                .create()
-                .show()
-        }
+        val result_text = Gson().toJson(order, Order::class.java) // 解碼內容
+        AlertDialog.Builder(context)
+            .setTitle("QRCode 內容")
+            .setMessage("$result_text")
+            .setPositiveButton("使用", { dialogInterface, i ->
+                // 取得該票的路徑
+                val path = order.ticket.userName + "/" + order.key
+                val transPath = "transaction/$path"
+                // 刪除該票
+                myRef.child(transPath).removeValue()
+                // 建立 transaction_history
+                val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()).toString()
+                myRef.child("transaction_history/$path/ts").setValue(ts)
+                myRef.child("transaction_history/$path/key").setValue(order.key)
+                myRef.child("transaction_history/$path/userName").setValue(order.ticket.userName)
+                myRef.child("transaction_history/$path/allTickets")
+                    .setValue(order.ticket.allTickets)
+                myRef.child("transaction_history/$path/oneWay").setValue(order.ticket.oneWay)
+                myRef.child("transaction_history/$path/roundTrip").setValue(order.ticket.roundTrip)
+                myRef.child("transaction_history/$path/total").setValue(order.ticket.total)
+                myRef.child("transaction_history/$path/json").setValue(result_text)
+                // 結束
+                finish()
+            })
+            .setNegativeButton("取消", { dialogInterface, i ->
+                // 結束
+                finish()
+            })
+            .create()
+            .show()
+
     }
 
     // 按一下可以產生 QR-Code 或 使用票券(後台專用)
@@ -197,17 +197,18 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
                 myRef.child(path).removeValue()
                 // 加回所退回的數量
                 // firebase's totalAmount 要加回所退回的數量(order.ticket.allTickets)
-                myRef.child("totalAmount").addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val totalAmount = snapshot.value.toString().toInt()
-                        val newTotalAmount = totalAmount + order.ticket.allTickets
-                        myRef.child("totalAmount").setValue(newTotalAmount)
-                    }
+                myRef.child("totalAmount")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val totalAmount = snapshot.value.toString().toInt()
+                            val newTotalAmount = totalAmount + order.ticket.allTickets
+                            myRef.child("totalAmount").setValue(newTotalAmount)
+                        }
 
-                    override fun onCancelled(error: DatabaseError) {
+                        override fun onCancelled(error: DatabaseError) {
 
-                    }
-                })
+                        }
+                    })
                 // 寫入退票紀錄檔
                 // firebase "transaction_refund"
                 val sdf = SimpleDateFormat("yyyyMMddHHmmssSSS")
@@ -215,11 +216,16 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
                 val orderJsonString = Gson().toJson(order).toString()
                 myRef.child("transaction_refund/$dateString/order/json").setValue(orderJsonString)
                 myRef.child("transaction_refund/$dateString/order/key").setValue(order.key)
-                myRef.child("transaction_refund/$dateString/order/ticket/userName").setValue(order.ticket.userName)
-                myRef.child("transaction_refund/$dateString/order/ticket/allTickets").setValue(order.ticket.allTickets)
-                myRef.child("transaction_refund/$dateString/order/ticket/roundTrip").setValue(order.ticket.roundTrip)
-                myRef.child("transaction_refund/$dateString/order/ticket/oneWay").setValue(order.ticket.oneWay)
-                myRef.child("transaction_refund/$dateString/order/ticket/total").setValue(order.ticket.total)
+                myRef.child("transaction_refund/$dateString/order/ticket/userName")
+                    .setValue(order.ticket.userName)
+                myRef.child("transaction_refund/$dateString/order/ticket/allTickets")
+                    .setValue(order.ticket.allTickets)
+                myRef.child("transaction_refund/$dateString/order/ticket/roundTrip")
+                    .setValue(order.ticket.roundTrip)
+                myRef.child("transaction_refund/$dateString/order/ticket/oneWay")
+                    .setValue(order.ticket.oneWay)
+                myRef.child("transaction_refund/$dateString/order/ticket/total")
+                    .setValue(order.ticket.total)
 
             }
             .setNegativeButton("取消", null)
@@ -232,7 +238,7 @@ class OrderListActivity : AppCompatActivity(), RecyclerViewAdapter.OrderOnItemCl
     fun ticketTotalSort(view: View) {
         // △ ▽ ▲ ▼
         Order.orderDelta *= -1
-        if(Order.orderDelta == -1) {
+        if (Order.orderDelta == -1) {
             (view as TextView).text = resources.getString(R.string.total_text) + "▼"
         } else {
             (view as TextView).text = resources.getString(R.string.total_text) + "▲"
