@@ -33,13 +33,39 @@ class ConsoleActivity : AppCompatActivity() {
         myRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val children = snapshot.children
+                // 統計資料累計
+                var sumAllTickets = 0
+                var sumOneWay = 0
+                var sumRoundTrip = 0
+                var sumTotal = 0
+                // -- forEach begin ---------------
                 children.forEach {
                     when(it.key.toString()) {
                         resources.getString(R.string.fb_discount) -> et_discount.setText(it.value.toString())
                         resources.getString(R.string.fb_price) -> et_price.setText(it.value.toString())
                         resources.getString(R.string.fb_totalAmount) -> et_totalAmount.setText(it.value.toString())
+                        "transaction" -> {
+                            it.children.forEach {  // 訂購人, ex: Helen
+                                it.children.forEach {  // 訂票日期, ex: 20210717093440753
+                                    it.children.forEach {  // 訂票內容
+                                        when(it.key.toString()) {
+                                            "allTickets" -> sumAllTickets += it.value.toString().toInt()
+                                            "oneWay" -> sumOneWay += it.value.toString().toInt()
+                                            "roundTrip" -> sumRoundTrip += it.value.toString().toInt()
+                                            "total" -> sumTotal += it.value.toString().toInt()
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+                // -- forEach end ---------------
+                // 顯示統計資料
+                tv_stat.text = "總賣票數：${ String.format("%,d", sumAllTickets) } 張\n" +
+                                "總單程票：${ String.format("%,d", sumOneWay) } 張\n" +
+                                "總來回票：${ String.format("%,d", sumRoundTrip) } 張\n" +
+                                "總銷售額：${ String.format("%,d", sumTotal) } 元"
             }
 
             override fun onCancelled(error: DatabaseError) {
