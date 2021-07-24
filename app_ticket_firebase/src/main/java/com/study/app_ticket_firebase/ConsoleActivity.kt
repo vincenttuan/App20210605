@@ -5,8 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_console.*
 
 class ConsoleActivity : AppCompatActivity() {
+    private val database = Firebase.database
+    private val myRef = database.getReference("ticketsStock")
     private lateinit var userName: String
     private lateinit var context: Context
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +28,25 @@ class ConsoleActivity : AppCompatActivity() {
 
         // Set activity title
         title = String.format(title.toString(), userName)
+
+        // Read from the database
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val children = snapshot.children
+                children.forEach {
+                    when(it.key.toString()) {
+                        "discount" -> et_discount.setText(it.value.toString())
+                        "price" -> et_price.setText(it.value.toString())
+                        "totalAmount" -> et_amount.setText(it.value.toString())
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     fun update(view: View) {
