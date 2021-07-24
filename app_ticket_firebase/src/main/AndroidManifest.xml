@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App20210605">
-        <activity android:name=".OrderListActivity"></activity>
+        <activity android:name=".ConsoleActivity"
+            android:label="@string/activity_console_title_text"
+            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".OrderListActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/activity_login_title_text">
