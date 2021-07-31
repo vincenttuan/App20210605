@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/et_email"
-        android:hint="Username"
+        android:hint="Email"
         android:textSize="30dp"
         android:inputType="textEmailAddress"
         android:layout_marginLeft="50dp"
@@ -38,13 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <CheckBox
-        android:id="@+id/cb_memory"
-        android:text="memory"
-        android:layout_below="@+id/et_password"
-        android:layout_toRightOf="@+id/bt_signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/bt_signin"
@@ -56,4 +49,41 @@
         android:layout_marginLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/cb_memory"
+        android:text="memory"
+        android:layout_below="@+id/et_password"
+        android:layout_toRightOf="@+id/bt_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_signup"
+        android:text="SignUp"
+        android:textAllCaps="false"
+        android:textColor="#00f"
+        android:clickable="true"
+        android:onClick="signUp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/et_password"
+        android:layout_toRightOf="@+id/cb_memory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_forgot"
+        android:text="Forgot"
+        android:textAllCaps="false"
+        android:textColor="#00f"
+        android:clickable="true"
+        android:onClick="forgot"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/et_password"
+        android:layout_toRightOf="@+id/tv_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

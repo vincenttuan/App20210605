@@ -38,6 +38,16 @@ class LoginActivity : AppCompatActivity() {
         cb_memory.isChecked = setting.getBoolean(MEMORY, false);
     }
 
+    fun forgot(view: View) {
+        val intent = Intent(context, ForgotActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun signUp(view: View) {
+        val intent = Intent(context, SignUpActivity::class.java)
+        startActivity(intent)
+    }
+
     fun signIn(view: View) {
         val email = et_email.text.toString()
         val password = et_password.text.toString()
