@@ -41,9 +41,9 @@ class LoginActivity : AppCompatActivity() {
     fun signIn(view: View) {
         val email = et_email.text.toString()
         val password = et_password.text.toString()
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                //task.result
                 if (task.isSuccessful) {
                     // 是否 memory ?
                     if(cb_memory.isChecked) {
