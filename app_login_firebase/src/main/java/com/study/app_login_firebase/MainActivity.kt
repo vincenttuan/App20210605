@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         Log.d("MainActivity", "currentUser: $currentUser")
-        if(currentUser == null) {
+        if(currentUser == null || currentUser.isEmailVerified == false) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
