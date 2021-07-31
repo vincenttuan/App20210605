@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         context = this
         auth = Firebase.auth
-        setting = getSharedPreferences(DATA, 0)
+        setting = getSharedPreferences(DATA, MODE_PRIVATE)
 
         et_email.setText(setting.getString(EMAIL, ""))
         et_password.setText(setting.getString(PASSWORD, ""))
