@@ -55,23 +55,31 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // 是否 memory ?
-                    if(cb_memory.isChecked) {
-                        setting.edit()
-                            .putString(EMAIL, et_email.text.toString())
-                            .putString(PASSWORD, et_password.text.toString())
-                            .putBoolean(MEMORY, true)
-                            .apply()
+                    // 是否此人的 email 有驗證 ?
+                    if( task.result?.user?.isEmailVerified == true ) {
+                        // 是否 memory ?
+                        if (cb_memory.isChecked) {
+                            setting.edit()
+                                .putString(EMAIL, et_email.text.toString())
+                                .putString(PASSWORD, et_password.text.toString())
+                                .putBoolean(MEMORY, true)
+                                .apply()
+                        } else {
+                            setting.edit()
+                                .putString(EMAIL, "")
+                                .putString(PASSWORD, "")
+                                .putBoolean(MEMORY, false)
+                                .apply()
+                        }
+                        val intent = Intent(context, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
-                        setting.edit()
-                            .putString(EMAIL, "")
-                            .putString(PASSWORD, "")
-                            .putBoolean(MEMORY, false)
-                            .apply()
+                        val intent = Intent(context, ResultActivity::class.java)
+                        intent.putExtra("message", "Email 尚未驗證")
+                        startActivity(intent)
+                        finish()
                     }
-                    val intent = Intent(context, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
                 } else {
                     Toast.makeText(context, "Login fail !", Toast.LENGTH_SHORT).show()
                 }
