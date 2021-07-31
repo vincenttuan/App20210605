@@ -78,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(context, ResultActivity::class.java)
                         intent.putExtra("message", "Email 尚未驗證")
                         startActivity(intent)
-                        finish()
                     }
                 } else {
                     Toast.makeText(context, "Login fail !", Toast.LENGTH_SHORT).show()
