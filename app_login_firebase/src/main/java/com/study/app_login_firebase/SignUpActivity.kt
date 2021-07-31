@@ -28,6 +28,8 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if(task.isSuccessful) {
                     message = "Sign up success"
+                    // 發送 email 驗證信件
+                    task.result?.user?.sendEmailVerification()
                 } else {
                     message = "Sign up fail: ${task.result}";
                 }
