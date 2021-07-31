@@ -1,5 +1,6 @@
 package com.study.app_login_firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +13,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         auth = Firebase.auth
+    }
+
+    public override fun onStart() {
+        super.onStart()
         val currentUser = auth.currentUser
         Log.d("MainActivity", "currentUser: $currentUser")
+        if(currentUser == null) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        //updateUI(currentUser)
     }
+
+
 }
+
+
+
