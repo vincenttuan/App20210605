@@ -31,7 +31,11 @@ class SignUpActivity : AppCompatActivity() {
                     // 發送 email 驗證信件
                     task.result?.user?.sendEmailVerification()
                 } else {
-                    message = "Sign up fail: ${task.result}";
+                    try {
+                        message = "Sign up fail: ${task.result}";
+                    } catch(e: Exception) {
+                        message = "Sign up fail: ${e.message?.substring(e.message.toString().indexOf(':'))?.trim()}";
+                    }
                 }
                 val intent = Intent(context, ResultActivity::class.java)
                 intent.putExtra("message", message)
