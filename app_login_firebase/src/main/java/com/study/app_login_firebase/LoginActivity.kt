@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val password = et_password.text.toString()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                //task.result
                 if (task.isSuccessful) {
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)
