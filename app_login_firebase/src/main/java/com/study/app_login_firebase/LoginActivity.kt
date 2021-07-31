@@ -77,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         val intent = Intent(context, ResultActivity::class.java)
                         intent.putExtra("message", "Email 尚未驗證")
+                        intent.putExtra("action", "emailVerify")
                         startActivity(intent)
                     }
                 } else {
