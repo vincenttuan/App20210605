@@ -11,7 +11,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         val message = intent.getStringExtra("message")
         if(message != null) {
-            tv_result.text = message
+            tv_result.setText(message)
         }
     }
 

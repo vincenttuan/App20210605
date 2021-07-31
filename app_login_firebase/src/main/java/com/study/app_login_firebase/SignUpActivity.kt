@@ -31,11 +31,11 @@ class SignUpActivity : AppCompatActivity() {
                 } else {
                     message = "Sign up fail: ${task.result}";
                 }
+                val intent = Intent(context, ResultActivity::class.java)
+                intent.putExtra("message", message)
+                startActivity(intent)
+                finish()
             }
 
-        val intent = Intent(context, ResultActivity::class.java)
-        intent.putExtra("message", message)
-        startActivity(intent)
-        finish()
     }
 }
