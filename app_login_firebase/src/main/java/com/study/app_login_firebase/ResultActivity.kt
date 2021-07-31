@@ -21,8 +21,11 @@ class ResultActivity : AppCompatActivity() {
         if(message != null) {
             tv_result.setText(message)
         }
+
         if(action != null && action.equals("emailVerify")) {
             bt_action.visibility = View.VISIBLE
+        } else {
+            bt_action.visibility = View.GONE
         }
     }
 
